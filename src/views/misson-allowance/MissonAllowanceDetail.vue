@@ -1,6 +1,6 @@
 <template>
     <div class="misson-allowance">
-        <ms-popup :btnTitle="'Lưu'" :action="'Thêm đơn'" :title="' - Công tác'" :status="1" >
+        <ms-popup @save="save()" :btnTitle="'Lưu'" :action="'Thêm đơn'" :title="' - Công tác'" :status="1" >
         <div class="flex">
           <div class="popup-content-left">
             <div class="popup-content-item center flex" :class="{validate:isValid.PeopleSuggest}" id="focusItem">
@@ -149,11 +149,11 @@ export default {
              },
             teammateDetail: false,
             isValid:{
-              Censor: null,
-              DateDone: null,
-              DateMove: null,
-              DateSuggest: true,               
-              PeopleSuggest: null,
+              Censor: false,
+              DateDone: false,
+              DateMove: false,
+              DateSuggest: false,               
+              PeopleSuggest: false,
                
             },
             defaultVisible: false,
@@ -161,7 +161,7 @@ export default {
 
         }
     },
-    mounted() {
+    created() {
     
             if(this.dataDetail)
             for(let item in this.dataDetail_){
@@ -191,9 +191,29 @@ export default {
             this.teammateDetail = !this.teammateDetail;
       },
       toggleDefault() {
-      this.defaultVisible = !this.defaultVisible;
-    },
-
+        this.defaultVisible = !this.defaultVisible;
+      },
+      save(){
+        console.log(this.dataDetail_);
+        if(this.dataDetail_.PeopleSuggest == null){
+          this.isValid.PeopleSuggest = true;
+          console.log('aaaaaaa');
+          
+        }
+        if(this.dataDetail_.Censor == null){
+          this.isValid.Censor = true;
+        }
+        if(this.dataDetail_.DateMove == null){
+          this.isValid.DateMove = true;
+        }
+        if(this.dataDetail_.DateDone == null){
+          this.isValid.DateDone = true;
+        }
+        if(this.dataDetail_.DateSuggest == null){
+          this.isValid.DateSuggest = true;
+        }
+        
+      }
     
     },
     computed:{
@@ -257,6 +277,9 @@ export default {
           
         }
       },
+    },
+    watch: {
+     
     }
 
 }

@@ -16,7 +16,7 @@
               <div class="btn-del">
                 <ms-button :btnTitle="'Hủy'"/>
               </div>
-              <div class="btn-save">
+              <div class="btn-save" @click="save()">
                 <ms-button :btnTitle="btnTitle"/>
               </div>
           </div>
@@ -41,6 +41,9 @@ export default {
             this.$bus.$emit('closeTeammate');
             if(this.status == 3)
             this.$bus.$emit('closeDel');
+        },
+        save(){
+            this.$emit('save');
         }
     }
 
