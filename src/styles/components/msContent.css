@@ -1,0 +1,105 @@
+.ms-content{
+    background-color: #eeeeee;
+    height: calc(100vh - 56px) ;
+    width: 100%;
+    
+}
+.content-container{
+    height: calc(100% - 32px);
+    width: calc(100% - 48px);
+    padding: 16px 24px;
+}
+.content-header{
+    height: 36px;
+    padding-bottom: 16px!important;
+    justify-content: space-between;
+}
+.filter{
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 4px;
+    
+    min-width: 0px !important;
+    background-color: #fff;
+    color: #171b2a;
+    border: 1px solid #dadce3;
+    margin: 0;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.icon-filter{
+    
+    -webkit-mask-position: -240px -48px;
+    -moz-mask-position: -240px -48px;
+    -ms-mask-position: -240px -48px;
+    -o-mask-position: -240px -48px;
+    mask-position: -240px -48px;
+}
+.icon-add{
+    -webkit-mask-position: -192px -24px;
+    -webkit-mask-position-x: -192px;
+    -webkit-mask-position-y: -24px;
+    -moz-mask-position: -192px -24px;
+    -ms-mask-position: -192px -24px;
+    -o-mask-position: -192px -24px;
+    mask-position: -192px -24px;
+    background-color: #fff !important;
+    margin-right: 4px;
+}
+.icon-search{
+    -webkit-mask-position: -120px 0;
+    -webkit-mask-position-x: -120px;
+    -webkit-mask-position-y: 0px;
+    -moz-mask-position: -120px 0;
+    -ms-mask-position: -120px 0;
+    -o-mask-position: -120px 0;
+    mask-position: -120px 0;
+}
+.title{
+    font-size: 20px;
+    color: #212121;
+    font-weight: 700;
+    letter-spacing: .384px!important;
+}
+.status{
+    padding-left: 50px;
+}
+.status-option{
+    border: none;
+}
+.search{
+    width: 225px;
+    border: 1px solid var(--input-normal-border-color);
+    border-radius: var(--input-border-radius);
+    padding: 0 8px;
+    margin: 0 8px 0 0;
+    background: #fff;
+    min-height: var(--text-box-height);
+    -webkit-box-align: center;
+}
+.btn-add{
+    margin: 0 8px 0 0 ;
+}
+.grid-container{
+    height: calc(100% - 56px);
+    width: 100%;
+    
+    border: 1px solid#eeeeee;
+}
+.status-option{
+    font-size: 14px;
+    font-weight: 550;
+    background-color: #eeeeee !important;
+}
+.status-option:focus{
+    border: none;
+    outline: none;
+}
+.status-option option{
+    box-shadow: 0px 0px 10px 0 rgb(0 0 0 / 10%);
+}

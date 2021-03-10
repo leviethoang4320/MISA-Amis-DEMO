@@ -1,0 +1,172 @@
+/* .dx-state-hover{
+    background-color: var(--primary-bg);
+    cursor: pointer;
+  }
+  td{
+    border-left: none !important;
+    border-top:none !important ;
+  }
+  .icon-header {
+   
+      color: white;
+      order: 0;
+      margin-right: 0px;
+      margin-left: 0px;
+      z-index: 100;
+      display: block;
+      position: relative;
+      box-sizing: border-box !important;
+      outline: none;
+      margin: auto;
+      margin-left: 16px !important;
+      padding: 0;
+      width: 22px !important;
+      height: 20px !important;
+      max-width: 22px !important;
+      min-width: 22px !important;
+      -webkit-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+      -moz-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+      -ms-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+      -o-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+      mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+      -webkit-mask-repeat: no-repeat;
+      -moz-mask-repeat: no-repeat;
+      -ms-mask-repeat: no-repeat;
+      -o-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      background-color: #666!important;
+      -webkit-mask-position: -242px -26px;
+      -moz-mask-position: -242px -26px;
+      -ms-mask-position: -242px -26px;
+      -o-mask-position: -242px -26px;
+      mask-position: -242px -26px;
+  }
+  .dx-datagrid-headers .dx-datagrid-table .dx-row > td {
+      border-bottom: 1px solid #e0e0e0;
+      padding-top: 14px  ;
+      padding-bottom: 14px  ; 
+      line-height: 16px;
+      
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.14px;
+      color: #212121;
+  }
+  .dx-datagrid .dx-row > td {
+      /* padding-top: 14px !important;
+      padding-bottom: 14px !important; 
+      font-size: 14px;
+      line-height: 20px;
+  }
+  .dx-datagrid .dx-datagrid-content .dx-datagrid-table .dx-row > td.dx-cell-modified:not(.dx-field-item-content):not(.dx-validation-pending):first-of-type, .dx-datagrid .dx-datagrid-content .dx-datagrid-table .dx-row > td.dx-datagrid-invalid:not(.dx-field-item-content):not(.dx-validation-pending):not(.dx-datagrid-select-all):first-of-type, .dx-datagrid .dx-datagrid-content .dx-datagrid-table .dx-row > td:not(.dx-validation-pending):not(.dx-datagrid-select-all):first-of-type{
+    padding-left: 0;
+  }
+  .triangle{
+     background: #fff;
+    position: absolute;
+     z-index: 1111111;
+    top: 162px;
+      left: 44px;
+  }
+  .triangle::after{
+    height: 14px;
+    width: 14px;
+      background: #fff;
+      display: block;
+      overflow: hidden;
+      content: " ";
+     
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      /* border: 1px solid #ddd; 
+  }
+  .icon-draggable{
+    -webkit-mask-position: -312px -72px;
+      -moz-mask-position: -312px -72px;
+      -ms-mask-position: -312px -72px;
+      -o-mask-position: -312px -72px;
+      mask-position: -312px -72px;
+  }
+  .item-checkbox{
+    border-radius: 50%;
+      background-color: var(--primary) !important;
+  }
+  
+  
+  tr:hover{
+    
+  }
+  .dx-header-row.dx-state-hover{
+    background-color: #fff;
+  }
+  td.dx-command-select.dx-cell-focus-disabled.dx-editor-cell.dx-editor-inline-block{
+    width: 50px !important;
+  }
+  .dx-checkbox-icon{
+    height: 16px !important;
+    width: 16px !important;
+    border-radius: 4px !important;
+  }
+  .grid-content{
+    width: 100%;
+  }
+  .dx-scrollbar-horizontal.dx-scrollbar-hoverable.dx-scrollable-scrollbar-active,
+.dx-scrollbar-horizontal.dx-scrollbar-hoverable.dx-scrollable-scrollbar-active .dx-scrollable-scroll,
+.dx-scrollbar-horizontal.dx-scrollbar-hoverable.dx-state-hover,
+.dx-scrollbar-horizontal.dx-scrollbar-hoverable.dx-state-hover .dx-scrollable-scroll {
+    height: 10px;
+    background: #f1f1f1!important;
+}
+
+.dx-scrollbar-vertical.dx-scrollbar-hoverable.dx-scrollable-scrollbar-active,
+.dx-scrollbar-vertical.dx-scrollbar-hoverable.dx-scrollable-scrollbar-active .dx-scrollable-scroll,
+.dx-scrollbar-vertical.dx-scrollbar-hoverable.dx-state-hover,
+.dx-scrollbar-vertical.dx-scrollbar-hoverable.dx-state-hover .dx-scrollable-scroll {
+    width: 10px;
+    height: 100%;
+    background: #f1f1f1!important;
+}
+
+.dx-scrollable-scroll-content {
+    width: 100%;
+    height: 100%;
+    background: #9e9e9e!important;
+    border-radius: 10px;
+    
+}
+.dx-scrollable-native.dx-scrollable-both, .dx-scrollable-native.dx-scrollable-both>.dx-scrollable-wrapper>.dx-scrollable-container {
+    -ms-touch-action: pan-y pan-x;
+    touch-action: pan-y pan-x;
+    float: none;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+.dx-scrollable-native.dx-scrollable-both>.dx-scrollable-wrapper>.dx-scrollable-container {
+    overflow-y: overlay!important;
+}
+.dx-scrollable-native .dx-scrollable-container {
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    height: 100%;
+}
+.dx-scrollable-container {
+    -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: #9e9e9e!important;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1!important;
+}
+::-webkit-scrollbar-track {
+    background: #fff;
+}
+   */

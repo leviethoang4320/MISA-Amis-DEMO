@@ -1,0 +1,38 @@
+.menu-item{
+    padding: 0 10px 0 16px;
+    margin: 0 4px;
+    margin-right: 27px !important;
+    
+    height: 36px;
+    line-height: 37px;
+    white-space: nowrap;
+    
+    display: flex;
+    justify-items: center;
+}
+.menu-item:hover{
+    border-radius: 32px;
+    cursor: pointer;
+    background-color: var(--primary);
+    color: white;
+    /* border: 1px solid var(--primary); */
+}
+.menu-item.active{
+    border-radius: 32px;
+    
+    /* background-color:  #ec5504; */
+    /* color: white; */
+    cursor: pointer;
+    background-color: var(--primary);
+    color: white;
+    /* border: 1px solid var(--primary); */
+}
+.focus{
+    border-radius: 32px;
+    cursor: pointer;
+    background-color: var(--primary);
+    color: white;
+    /* border: 1px solid var(--primary); */
+  }
+
+

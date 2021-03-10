@@ -1,0 +1,55 @@
+.ms-dropdown-menu{
+    position: absolute;
+   top:40px;
+   right: -10px;
+   /* background-color: white; */
+   /* box-shadow: 10px; */
+   
+   
+   background: #fff;
+   border-radius: 5px;
+   -webkit-box-shadow: 0 5px 25px 0 rgb(0 0 0 / 10%);
+   box-shadow: 0px 0px 10px 0 rgb(0 0 0 / 10%);
+   padding: 8px;
+   z-index: 11;
+   margin: 0;
+}
+.ms-dropdown-menu ul {
+   padding: 0;
+   margin: 0;
+}
+.ms-dropdown-menu ul li {
+   list-style: none;
+   justify-content: space-between;
+   padding-left: 8px;
+   border-radius: 4px;
+}
+.ms-dropdown-menu ul li .drop-item-content{
+   text-decoration: none;
+   color: #000000B3;
+   width: auto;
+   padding-right: 30px ;
+}
+.icon-check{
+   
+   background:#ec5504; 
+   
+    width: 24px;
+    height: 24px;
+    -webkit-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+    -moz-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+    -ms-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+    -o-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+    mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+    -webkit-mask-position: -216px -48px;
+    -moz-mask-position: -216px -48px;
+    -ms-mask-position: -216px -48px;
+    -o-mask-position: -216px -48px;
+    mask-position: -216px -48px;
+    -webkit-mask-repeat: no-repeat;
+    -moz-mask-repeat: no-repeat;
+    -ms-mask-repeat: no-repeat;
+    -o-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+   
+}

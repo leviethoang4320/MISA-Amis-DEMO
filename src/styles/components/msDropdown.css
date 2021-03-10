@@ -1,0 +1,35 @@
+
+    .ms-dropdown{
+        
+       
+        position: relative;
+        display: flex;
+        border: 0;
+        cursor: pointer;
+        padding: 0!important;
+    }
+    
+    .ms-dropdown:hover{
+        color: white;
+    }
+    .dropdown-icon{
+        margin-top: 5px;
+        background-color: white;
+        width: 24px;
+        height: 24px;
+        -webkit-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+        -moz-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+        -ms-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+        -o-mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+        mask-image: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg);
+        -webkit-mask-position: -192px 0;
+        -moz-mask-position: -192px 0;
+        -ms-mask-position: -192px 0;
+        -o-mask-position: -192px 0;
+        mask-position: -192px 0;
+        -webkit-mask-repeat: no-repeat;
+        -moz-mask-repeat: no-repeat;
+        -ms-mask-repeat: no-repeat;
+        -o-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+    }

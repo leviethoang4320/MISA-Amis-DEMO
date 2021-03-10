@@ -1,0 +1,94 @@
+.popup-bgr{
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    z-index: 99;
+    -webkit-transition: all .250s ease;
+    transition: all .250s ease;
+    opacity: 9999;
+}
+.popup-detail{
+    height: auto;
+    width: auto;
+    margin: auto;
+    color: #212121;
+    position: absolute;
+    border: 0;
+    border-radius: 4px;
+    background: none;
+    overflow: auto;    
+    top: 15px;
+    left: calc(50% - 446px);
+    z-index: 100;
+    background-color: white;
+}
+.popup-header{
+    
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    border-radius: 4px 4px;
+    position: relative;
+    
+    padding-bottom: 0px;
+    height: 53px;
+    min-height: 53px !important;
+}
+.icon-close{
+    cursor: pointer;
+    margin-right: 30px;
+    margin-top: 30px;
+    -webkit-mask-position: -24px -48px;
+    -moz-mask-position: -24px -48px;
+    -ms-mask-position: -24px -48px;
+    -o-mask-position: -24px -48px;
+    mask-position: -24px -48px;
+}
+.popup-content{
+    min-height: 200px;
+    max-height: 458px;
+    transition: all .23s ease .1s;
+    padding: 24px;
+    justify-content: space-between;
+    overflow: auto
+}
+.popup-toolbar{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 16px 24px;
+    border-radius: 0 0 4px 4px;
+    height: 36px;
+    border-top: 1px solid #bbbbbb;
+}
+.popup-title {
+    margin-left: 22px;
+    margin-top: 24px;
+}
+.btn-del .ms-button{
+    background-color: white;
+    color: #212121;
+    margin-right: 20px;
+    padding: 0 ;
+    border: 1px solid #bebebe;
+    width: 80px ;
+}
+.popup-content-item {
+    height: 35px;
+    margin-bottom: 16px;
+    width: 398px;
+    justify-content: space-between;
+}
