@@ -8,6 +8,7 @@
         format = "DD/MM/YYYY HH:mm"
         :show-time-panel="showTimePanel"
         @close="handleOpenChange"
+        :clearable="false"
       >
         <template v-slot:footer>
           <button class="mx-btn mx-btn-text" @click="toggleTimePanel">

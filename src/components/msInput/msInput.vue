@@ -14,17 +14,31 @@
               display-expr="Name"
               value-expr="Name"
               v-model="value"
-            
+              
               ref="focusItem"
 
         /> 
         <ms-datepicker  v-else-if="inputType.date" :defaultDate.sync="dateFormat"/>
-        <textarea v-else v-model="model" name="" class="input-text" cols="30" rows="10"></textarea>
+        <DxTagBox
+          v-else-if="inputType.tagBox"
+          :items="dataSelect"
+          :search-enabled="true"
+          v-model="tagBoxFormat"
+          height="100%"
+          width="100%"
+         
+          display-expr="Name"
+            value-expr="ID"
+            :placeholder = "''"
+
+        />
+        <textarea v-else v-model="value" name="" class="input-text" cols="30" rows="10"></textarea>
         <slot></slot>
     </div>
 </template>
 
 <script>
+import DxTagBox from 'devextreme-vue/tag-box';
 import { DxSelectBox } from 'devextreme-vue/select-box';
 export default {
     name:"MsInput",
@@ -34,20 +48,27 @@ export default {
             type: String,
             default: null
         },
-        defaultDate: String,
+        defaultDate:{
+            type: String,
+            default: null
+        },
         focusItem: {
             type: Boolean,
             default: false
+        },
+        tagBox:{
+            type: String,
+            default: null
         }
     },
     components:{
-        DxSelectBox
+        DxSelectBox,
+        DxTagBox
     }
     ,
     data() {
         return {
-            valueX: null,
-            date1: Date.now(),
+           
             dataSelect:[
                 {Name:"Lê Việt Hoàng",ID:1},
                 {Name:"Lê Hoài Nam",ID:2},
@@ -56,27 +77,49 @@ export default {
             ],
             value: null,
             dateFormat:null,
+            tagBoxFormat: null
         }
     },
     mounted() {
-        if(this.model) this.value = this.model
+        if(this.model) this.value = this.model;
         if(this.focusItem){
                 
                 this.$refs['focusItem'].instance.focus();
             }
         this.dateFormat = this.defaultDate;
+        this.tagBoxFormat = this.formatTagbox(this.tagBox);
     },
     methods:{
-       
+       formatTagbox(tagBox){
+           if(tagBox)
+           return tagBox.split(";");
+           else return null;
+
+       }
     },
      watch: {
-    defaultDate(val) {
-     this.dateFormat = val;
+    // defaultDate(val) {
+    //  this.dateFormat = val;
+     
+    // },
+    dateFormat(val) {
+     this.$emit('update:defaultDate',val)
      
     },
     value(val){
             this.$emit('update:model',val)
+        },
+    tagBoxFormat(val){
+        
+        var str = "";
+        if(val){
+            val.forEach(element => {
+                str+=(element.toString()+";")
+            });
         }
+        
+        this.$emit('update:tagBox',str)
+    }
   },
 
 }
@@ -213,6 +256,21 @@ textarea.input-text {
     height: calc(100% - 16px);
     width: calc(100% - 16px);
     /* margin: 0px; */
+}
+.dx-tagbox .dx-texteditor-container {  
+    overflow-y: auto;  
+   padding: 8px;  
+}
+.dx-tag-content {
+    border-radius: 8px;
+    cursor: default;
+    color: #212121
+}
+
+.dx-tag-remove-button::before {
+    color: #212121;
+    background-color: unset;
+    cursor: pointer
 }
 
 </style>

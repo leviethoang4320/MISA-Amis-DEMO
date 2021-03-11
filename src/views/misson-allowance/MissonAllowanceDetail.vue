@@ -33,19 +33,19 @@
             </div>
             <div class="popup-content-item center flex date" :class="{validate:isValid.DateSuggest}">
                 <div class="inputText" >Ngày đề nghị <span class="required"> *</span></div>
-                <ms-input :inputType="inputTypeDate" :defaultDate.sync="dataDetail_.DateSuggest" >
+                <ms-input :inputType="inputTypeDate" :defaultDate.sync="vDateSuggest" >
                   <div class="icon icon-error" v-if="isValid.DateSuggest"></div>
                 </ms-input>
             </div>
             <div class="popup-content-item center flex date" :class="{validate:isValid.DateMove}">
                 <div class="inputText" >Ngày đi <span class="required"> *</span></div>
-                <ms-input :inputType="inputTypeDate" :defaultDate.sync="dataDetail_.DateMove">
+                <ms-input :inputType="inputTypeDate" :defaultDate.sync="vDateMove">
                   <div class="icon icon-error" v-if="isValid.DateMove"></div>
                 </ms-input>
             </div>
             <div class="popup-content-item center flex date" :class="{validate:isValid.DateDone}">
                 <div class="inputText" >Ngày về <span class="required"> *</span></div>
-                <ms-input :inputType="inputTypeDate" :defaultDate.sync="dataDetail_.DateDone" >
+                <ms-input :inputType="inputTypeDate" :defaultDate.sync="vDateDone" >
                   <div class="icon icon-error" v-if="isValid.DateDone"></div>
                 </ms-input>
             </div>
@@ -61,7 +61,7 @@
           <div class="popup-content-right">
             <div class="popup-content-item right x flex">
                 <div class="inputText">Người liên quan</div>
-                <ms-input :inputType="inputTypeSelect"/>
+                <ms-input :inputType="inputTypeTagbox" :tagBox.sync="vPeopleInvol"/>
             </div>
             <div class="popup-content-item right x flex">
                 <div class="inputText">Yêu cầu hỗ trợ</div>
@@ -75,10 +75,10 @@
                 <div class="inputText">Ghi chú</div>
                 <ms-input :inputType="inputTypeText"/>
             </div>
-            <div class="popup-content-item center x flex" style="witdh=275px">
+            <div class="popup-content-item center x flex" :class="{validate:isValid.Status}" style="witdh=275px">
                 <div class="inputText">Trạng thái <span class="required"> *</span></div>
-                <ms-input :inputType="inputTypeSelect" :model="dataDetail_.Status">
-
+                <ms-input :inputType="inputTypeSelect" :model.sync="vStatus">
+                  <div class="icon icon-error" v-if="isValid.Status"></div>
                 </ms-input>
             </div>
           </div>
@@ -124,17 +124,25 @@ export default {
     data() {
         return {
             inputTypeDate:{
-               select: false,
-               date: true
+              select:false,
+               date: true,
+               tagBox:false
              },
              inputTypeSelect:{
                 select: true,
-                date: false
+                date:false,
+                tagBox:false
              }
              ,
+             inputTypeTagbox:{
+                tagBox: true,
+                date: false,
+                select:false
+             },
              inputTypeText:{
-                select: false,
-                date: false
+                tagBox: false,
+                date: false,
+                select:false
              },
              dataDetail_:{
                 Censor: null,
@@ -146,6 +154,7 @@ export default {
                 Place: null,
                 Reason: null,
                 Status: null,
+                PeopleInvol:null
              },
             teammateDetail: false,
             isValid:{
@@ -154,6 +163,7 @@ export default {
               DateMove: false,
               DateSuggest: false,               
               PeopleSuggest: false,
+              Status: false
                
             },
             defaultVisible: false,
@@ -197,7 +207,7 @@ export default {
         console.log(this.dataDetail_);
         if(this.dataDetail_.PeopleSuggest == null){
           this.isValid.PeopleSuggest = true;
-          console.log('aaaaaaa');
+          
           
         }
         if(this.dataDetail_.Censor == null){
@@ -211,6 +221,9 @@ export default {
         }
         if(this.dataDetail_.DateSuggest == null){
           this.isValid.DateSuggest = true;
+        }
+        if(this.dataDetail_.Status == null){
+          this.isValid.Status = true;
         }
         
       }
@@ -275,6 +288,30 @@ export default {
           else this.isValid.DateSuggest = false;
           this.dataDetail_.DateSuggest = value
           
+        }
+      },
+      vStatus:{
+        get(){ return  this.dataDetail_.Status },
+        set(value){
+          //handle
+          if(value==null){
+            this.isValid.Status = true;
+          }
+          else this.isValid.Status = false;
+          this.dataDetail_.Status = value
+          
+        }
+      },
+      vPeopleInvol:{
+        get(){ return  this.dataDetail_.PeopleInvol },
+        set(value){
+          //handle
+          if(value==null){
+            this.isValid.PeopleInvol = true;
+          }
+          else this.isValid.PeopleInvol = false;
+          this.dataDetail_.PeopleInvol = value
+          console.log(value)
         }
       },
     },
