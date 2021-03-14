@@ -5,83 +5,219 @@
           <div class="popup-content-left">
             <div class="popup-content-item center flex" :class="{validate:isValid.PeopleSuggest}" id="focusItem">
                 <div class="inputText" >Người đề nghị <span class="required"> *</span></div>
-                <ms-input :focusItem="true" :inputType="inputTypeSelect" :model.sync="vPeopleSuggest">
-                  <div class="icon icon-error" id="tooltipPeopleSuggest" @mouseenter="toggleDefault"
-                       @mouseleave="toggleDefault" v-if="isValid.PeopleSuggest">
-                  </div>
-                  <DxTooltip
-                    :visible="defaultVisible"
-                    :close-on-outside-click="false"
-                    target="#tooltipPeopleSuggest"
-                     position="top"
-                  >
-                    Người đề nghị không được để trống
-                  </DxTooltip>
-                </ms-input>
-                
+                <div class="ms-input">
+                    <DxSelectBox
+                          
+                          :search-enabled="true"
+                          :data-source="Employee"
+                          search-mode="contains"
+                          search-expr="Name"
+                          :search-timeout = "200"
+                          :min-search-length = "0"
+                          :show-data-before-search="false"
+                          :placeholder = "''"
+                          display-expr="Name"
+                          value-expr="EmployeeId"
+                          v-model="vPeopleSuggest"
+                          
+                          ref="focusItem"
+
+                    /> 
+                    <div class="icon icon-error" id="tooltipPeopleSuggest" @mouseenter="togglePeopleSuggest"
+                        @mouseleave="togglePeopleSuggest" v-if="isValid.PeopleSuggest">
+                    </div>
+                    <DxTooltip
+                      :visible="PeopleSuggestVisible"
+                      :close-on-outside-click="false"
+                      target="#tooltipPeopleSuggest"
+                      position="top"
+                    >
+                      Người đề nghị không được để trống
+                    </DxTooltip>
+                </div>                
             </div>
+
             <div class="popup-content-item center flex">
                 <div class="inputText">Đơn vị công tác </div>
                 <input disabled="true" style="height:29px; width:232px"/>
             </div>
             <div class="popup-content-item center flex" :class="{validate:isValid.Censor}">
-                <div class="inputText"  >Người duyệt <span class="required"> *</span></div>
-                <ms-input :inputType="inputTypeSelect" :model.sync="vCensor">
-                  <div class="icon icon-error" v-if="isValid.Censor"></div>
-                </ms-input>
+                <div class="inputText"   >Người duyệt <span class="required"> *</span></div>
+                <div class="ms-input" >
+                  <DxSelectBox
+                         
+                        :search-enabled="true"
+                        :data-source="Employee"
+                        search-mode="contains"
+                        search-expr="Name"
+                        :search-timeout = "200"
+                        :min-search-length = "0"
+                        :show-data-before-search="false"
+                        :placeholder = "''"
+                        display-expr="Name"
+                        value-expr="EmployeeId"
+                        v-model="vCensor"
+                        
+                      
+                  /> 
+                  <div class="icon icon-error" id="tooltipCensor" @mouseenter="toggleCensor"
+                        @mouseleave="toggleCensor" v-if="isValid.Censor">
+                  </div>
+                    <DxTooltip
+                      :visible="CensorVisible"
+                      :close-on-outside-click="false"
+                      target="#tooltipCensor"
+                      position="top"
+                    >
+                      Người duyệt không được để trống
+                    </DxTooltip>
+                </div>
 
             </div>
             <div class="popup-content-item center flex date" :class="{validate:isValid.DateSuggest}">
                 <div class="inputText" >Ngày đề nghị <span class="required"> *</span></div>
-                <ms-input :inputType="inputTypeDate" :defaultDate.sync="vDateSuggest" >
-                  <div class="icon icon-error" v-if="isValid.DateSuggest"></div>
-                </ms-input>
+                <div class="ms-input" >
+                  <ms-datepicker  :defaultDate.sync="vDateSuggest"/>
+                   <div class="icon icon-error" id="tooltipDateSuggest" @mouseenter="toggleDateSuggest"
+                        @mouseleave="toggleDateSuggest" v-if="isValid.DateSuggest">
+                  </div>
+                    <DxTooltip
+                      :visible="DateSuggestVisible"
+                      :close-on-outside-click="false"
+                      target="#tooltipDateSuggest"
+                      position="top"
+                    >
+                      Ngày đề nghị không được để trống
+                    </DxTooltip>
+
+                </div>
             </div>
             <div class="popup-content-item center flex date" :class="{validate:isValid.DateMove}">
                 <div class="inputText" >Ngày đi <span class="required"> *</span></div>
-                <ms-input :inputType="inputTypeDate" :defaultDate.sync="vDateMove">
-                  <div class="icon icon-error" v-if="isValid.DateMove"></div>
-                </ms-input>
+                <div class="ms-input"  >
+                  <ms-datepicker   :defaultDate.sync="vDateMove"/>
+                   <div class="icon icon-error" id="tooltipDateMove" @mouseenter="toggleDateMove"
+                        @mouseleave="toggleDateMove" v-if="isValid.DateMove">
+                  </div>
+                    <DxTooltip
+                      :visible="DateMoveVisible"
+                      :close-on-outside-click="false"
+                      target="#tooltipDateMove"
+                      position="top"
+                    >
+                      Ngày đi không được để trống
+                    </DxTooltip>
+                </div>
             </div>
             <div class="popup-content-item center flex date" :class="{validate:isValid.DateDone}">
                 <div class="inputText" >Ngày về <span class="required"> *</span></div>
-                <ms-input :inputType="inputTypeDate" :defaultDate.sync="vDateDone" >
-                  <div class="icon icon-error" v-if="isValid.DateDone"></div>
-                </ms-input>
+                <div class="ms-input" >
+                  <ms-datepicker :defaultDate.sync="vDateDone"/>
+                   <div class="icon icon-error" id="tooltipDateDone" @mouseenter="toggleDateDone"
+                        @mouseleave="toggleDateDone" v-if="isValid.DateDone">
+                  </div>
+                    <DxTooltip
+                      :visible="DateDoneVisible"
+                      :close-on-outside-click="false"
+                      target="#tooltipDateDone"
+                      position="top"
+                    >
+                      Ngày về không được để trống
+                    </DxTooltip>
+                </div>
             </div>
             <div class="popup-content-item center flex">
                 <div class="inputText" >Địa điểm công tác</div>
-                <ms-input :inputType="inputTypeText" :model="dataDetail_.Place" />
+                <div class="ms-input">
+                <textarea v-model="dataDetail_.Place" name="" class="input-text" cols="30" rows="10"></textarea>
+                </div>
             </div>
             <div class="popup-content-item right flex">
-                <div class="inputText">Lý do công tác</div>
-                <ms-input :inputType="inputTypeText" :model="dataDetail_.Reason" />
+                <div class="inputText" >Lý do công tác</div>
+                <div class="ms-input"> 
+                  <textarea v-model="dataDetail_.Reason"  name="" class="input-text" cols="30" rows="10"></textarea>
+                </div>
+
             </div>
           </div>
           <div class="popup-content-right">
             <div class="popup-content-item right x flex">
                 <div class="inputText">Người liên quan</div>
-                <ms-input :inputType="inputTypeTagbox" :tagBox.sync="vPeopleInvol"/>
+                <div class="ms-input">
+                  <DxTagBox
+                  
+                    :items="Employee"
+                    :search-enabled="true"
+                    v-model="vPeopleInvol"
+                  
+                    height="100%"
+                    width="100%"
+                  
+                    display-expr="Name"
+                      value-expr="EmployeeId"
+                      :placeholder = "''"
+
+                  />
+                  <div class="icon-down" ></div>
+                </div>
             </div>
             <div class="popup-content-item right x flex">
                 <div class="inputText">Yêu cầu hỗ trợ</div>
-                <ms-input :inputType="inputTypeText" />
+                <div class="ms-input">
+                  <textarea v-model="dataDetail_.RequestSupport"  name="" class="input-text" cols="30" rows="10"></textarea>
+                </div>
             </div>
             <div class="popup-content-item right x flex">
                 <div class="inputText">Người hỗ trợ</div>
-                <ms-input :inputType="inputTypeSelect"/>
+                <div class="ms-input">
+                    <DxTagBox
+                  
+                    :items="Employee"
+                    :search-enabled="true"
+                    
+                    v-model="vPeopleSupport"
+                    height="100%"
+                    width="100%"
+                  
+                    display-expr="Name"
+                      value-expr="EmployeeId"
+                      :placeholder = "''"
+
+                    />
+                    <div class="icon-down" ></div>
+                </div>
             </div>
             <div class="popup-content-item right x flex">
                 <div class="inputText">Ghi chú</div>
-                <ms-input :inputType="inputTypeText"/>
+                <div class="ms-input">
+                  <textarea v-model="dataDetail_.Note"  name="" class="input-text" cols="30" rows="10"></textarea>
+                  
+                </div>
             </div>
             <div class="popup-content-item center x flex" :class="{validate:isValid.Status}" style="witdh=275px">
                 <div class="inputText">Trạng thái <span class="required"> *</span></div>
-                <ms-input :inputType="inputTypeSelect" :model.sync="vStatus">
+                <div class="ms-input">
+                    <DxSelectBox
+                          :search-enabled="true"
+                          :data-source="statusData"
+                          search-mode="contains"
+                          search-expr="Name"
+                          :search-timeout = "200"
+                          :min-search-length = "0"
+                          :show-data-before-search="false"
+                          :placeholder = "''"
+                          display-expr="Name"
+                          value-expr="ID"
+                          v-model="dataDetail_.Status"
+                          
+                          
+                        
+                    /> 
                   <div class="icon icon-error" v-if="isValid.Status"></div>
-                </ms-input>
+                </div>
             </div>
           </div>
+          
         </div>
         <div class="teammate">
           <div class="teammate-title">
@@ -107,55 +243,51 @@
 </template>
 
 <script>
+import DxTagBox from 'devextreme-vue/tag-box';
+import { DxSelectBox } from 'devextreme-vue/select-box';
 import { DxTooltip } from 'devextreme-vue/tooltip';
 import MsTeammateDetail from "./MsTeammateDetail.vue";
+import ApplicationAPI from '@/api/components/Application/ApplicationAPI.js'
+import EmployeeAPI from '@/api/components/Employee/EmployeeAPI.js'
+
 export default {
     name: "MissonAllowanceDetail",
     components:{
       MsTeammateDetail,
-      DxTooltip
+      DxTooltip,
+      DxSelectBox,
+      DxTagBox
     },
     props:{
-        dataDetail:{
-             type: Object,
-             default: null
-        }
+      dataDetail:{
+        type: Object,
+        default: null
+      },
+      action: Number
     },
     data() {
         return {
-            inputTypeDate:{
-              select:false,
-               date: true,
-               tagBox:false
-             },
-             inputTypeSelect:{
-                select: true,
-                date:false,
-                tagBox:false
-             }
-             ,
-             inputTypeTagbox:{
-                tagBox: true,
-                date: false,
-                select:false
-             },
-             inputTypeText:{
-                tagBox: false,
-                date: false,
-                select:false
-             },
-             dataDetail_:{
-                Censor: null,
+            statusData:[
+                {ID:1, Name: "Chờ duyệt"},
+                {ID:2, Name: "Đã duyệt"},
+                {ID:0, Name: "Từ chối"}
+            ],
+            dataDetail_:{
+                CensorId: null,
                 DateDone: null,
                 DateMove: null,
                 DateSuggest: null,
-                ID: null,
-                PeopleSuggest: null,
+                PeopleSuggestId: null,
                 Place: null,
                 Reason: null,
-                Status: null,
-                PeopleInvol:null
-             },
+                Status: 1,
+                PeopleInvolIds:null,
+                PeopleSupportIds:null,
+                RequestSupport: null,
+                Note: null
+            },
+            Employee: null,
+            Censor:null,
             teammateDetail: false,
             isValid:{
               Censor: false,
@@ -163,111 +295,224 @@ export default {
               DateMove: false,
               DateSuggest: false,               
               PeopleSuggest: false,
-              Status: false
-               
+              Status: false,             
             },
-            defaultVisible: false,
+            checkValid: false,
+            PeopleSuggestVisible: false,
+            CensorVisible: false,
+            DateSuggestVisible: false,
+            DateMoveVisible: false,
+            DateDoneVisible: false,
+            vPeopleInvol:null,
+            vPeopleSupport:null
             
 
         }
     },
-    created() {
-    
-            if(this.dataDetail)
-            for(let item in this.dataDetail_){
-                
-                if(item.toString()=='DateSuggest'||item.toString()=='DateMove'||item.toString()=='DateDone'){
-                  this.dataDetail_[item.toString()]=  this.formatDate(this.dataDetail[item.toString()]) ;
-                }
-                else this.dataDetail_[item.toString()]= this.dataDetail[item.toString()] ;
-            }
-
-            this.$bus.$on('closeTeammate',()=>{
-            this.teammateDetail = !this.teammateDetail;
-             });
+    async created() {
+      //load và xử lý dữ liệu tagBox
+      if(this.dataDetail)
+        this.dataDetail_ = (await ApplicationAPI.getById(this.dataDetail.ApplicationId)).data;
+      this.vPeopleInvol = this.formatTagbox(this.dataDetail_.PeopleInvolIds);
+      this.vPeopleSupport = this.formatTagbox(this.dataDetail_.PeopleSupportIds);
+      this.Employee = (await EmployeeAPI.getAll()).data; 
             
+    },
+    
+    mounted() {
+       
+      this.$bus.$on('closeTeammate',()=>{
+        this.teammateDetail = !this.teammateDetail;
+      });
+      this.$refs['focusItem'].instance.focus();
+           
+               
           
     },
     methods:{
-      formatDate(date){
-        let day = date.substr(0,2);
-        let month = date.substr(3,2);
-        let year = date.substr(6,4);
-        let a = (new Date(year-1,month-1,day)).toString();
-       
-        return a;
-      },
+      /**
+       * Mở dialog chọn người đi cùng
+       */
       openTeammateDetail(){
             this.teammateDetail = !this.teammateDetail;
       },
-      toggleDefault() {
-        this.defaultVisible = !this.defaultVisible;
+
+      /**
+       * các method ẩn hiện tooltip
+       */
+      togglePeopleSuggest() {
+        this.PeopleSuggestVisible = !this.PeopleSuggestVisible;
       },
-      save(){
-        console.log(this.dataDetail_);
-        if(this.dataDetail_.PeopleSuggest == null){
-          this.isValid.PeopleSuggest = true;
-          
-          
+      toggleCensor() {
+        this.CensorVisible = !this.CensorVisible;
+      },
+      toggleDateSuggest() {
+        this.DateSuggestVisible = !this.DateSuggestVisible;
+      },
+      toggleDateMove() {
+        this.DateMoveVisible = !this.DateMoveVisible;
+      },
+      toggleDateDone() {
+        this.DateDoneVisible = !this.DateDoneVisible;
+      },
+       // convert dữ liệu tagBox dạng Array sang Sting
+      convertToString(Ids){
+        var str="";
+        if(Ids){
+          Ids.forEach(element => {
+            str+=(element.toString()+";");
+          });
+          return str;
         }
-        if(this.dataDetail_.Censor == null){
+        else return null;
+      },
+      /**
+       * Xử lý khi nhấn lưu 
+       */
+      async save(){
+        //thự hiện check Validate
+        this.checkValid = false;
+       
+        if(this.dataDetail_.PeopleSuggestId == null){
+          this.isValid.PeopleSuggest = true;
+          this.checkValid = true;
+        }
+        if(this.dataDetail_.CensorId == null){
           this.isValid.Censor = true;
+          this.checkValid = true;
         }
         if(this.dataDetail_.DateMove == null){
           this.isValid.DateMove = true;
+          this.checkValid = true;
         }
         if(this.dataDetail_.DateDone == null){
           this.isValid.DateDone = true;
+          this.checkValid = true;
         }
         if(this.dataDetail_.DateSuggest == null){
           this.isValid.DateSuggest = true;
+          this.checkValid = true;
         }
         if(this.dataDetail_.Status == null){
           this.isValid.Status = true;
+          this.checkValid = true;
+        }
+       //nếu action = 1 thì thự hiện sửa, 0 thực hiện xóa
+        if(this.checkValid==false){
+          if(this.action==0){
+    
+          this.add();
+          }
+          if(this.action==1){
+          
+            this.update();
+          }
         }
         
-      }
+        
+        
+        
+      },
+      /**
+       * chuyển chuỗi các string Id về mảng int Id
+       */
+      formatTagbox(tagBox){
+        if(tagBox){         
+          tagBox = tagBox.slice(0,-1);
+          var listData = tagBox.split(";");
+          var data = [];
+          listData.forEach(element => {
+            if(typeof(element) == "string"){
+              data.push(parseInt(element));
+            }
+            else{
+              data.push(element);
+            }
+          });
+          return data;
+          }
+        else return null;
+
+      },
+      /**
+       * Thêm mới dữ liệu
+       */
+      add(){       
+        this.dataDetail_.DateSuggest =  new Date(this.dataDetail_.DateSuggest);
+        this.dataDetail_.DateMove =  new Date(this.dataDetail_.DateMove);
+        this.dataDetail_.DateDone =  new Date(this.dataDetail_.DateDone);
+        this.dataDetail_.PeopleInvolIds = this.convertToString(this.vPeopleInvol);
+        this.dataDetail_.PeopleSupportIds = this.convertToString(this.vPeopleSupport)
+        try {
+          ApplicationAPI.insert(this.dataDetail_);
+        } catch (error) {
+          alert(error)
+        } 
+        this.$bus.$emit('closeDetail');
+         setTimeout(() => {
+          this.$bus.$emit('reload');
+         
+          
+        }, 500);
+        
+      },
+      /**
+       * Cập nhật dữ liệu
+       */
+      async update(){        
+        this.dataDetail_.DateSuggest =  new Date(this.dataDetail_.DateSuggest);       
+        this.dataDetail_.DateMove =  new Date(this.dataDetail_.DateMove);
+        this.dataDetail_.DateDone =  new Date(this.dataDetail_.DateDone);
+        this.dataDetail_.PeopleInvolIds = this.convertToString(this.vPeopleInvol);
+        this.dataDetail_.PeopleSupportIds = this.convertToString(this.vPeopleSupport);
+        ApplicationAPI.update(this.dataDetail.ApplicationId,this.dataDetail_);
+        this.$bus.$emit('closeDetail');
+        setTimeout(() => {
+          this.$bus.$emit('reload');         
+        }, 500);        
+      },
     
     },
-    computed:{
+    computed:{      
       vCensor:{
-        get(){ return  this.dataDetail_.Censor },
+        get(){ return  this.dataDetail_.CensorId },
         set(value){
           //handle
           if(value==null){
             this.isValid.Censor = true;
           }
           else this.isValid.Censor = false;
-          this.dataDetail_.Censor = value
-          
+          this.dataDetail_.CensorId = value         
         }
       },
       vPeopleSuggest:{
-        get(){ return  this.dataDetail_.PeopleSuggest },
+        get(){ return  this.dataDetail_.PeopleSuggestId },
         set(value){
           //handle
           if(value==null){
             this.isValid.PeopleSuggest = true;
           }
           else this.isValid.PeopleSuggest = false;
-          this.dataDetail_.PeopleSuggest = value
-          
+          this.dataDetail_.PeopleSuggestId = value         
         }
       },
       vDateMove:{
-        get(){ return  this.dataDetail_.DateMove },
+        get(){ if(this.dataDetail_.DateMove)
+          return this.dataDetail_.DateMove.toString();
+          else return null; },
         set(value){
           //handle
           if(value==null){
             this.isValid.DateMove = true;
           }
           else this.isValid.DateMove = false;
-          this.dataDetail_.DateMove = value
-          
+          this.dataDetail_.DateMove = value          
         }
       },
       vDateDone:{
-        get(){ return  this.dataDetail_.DateDone },
+        get(){ if(this.dataDetail_.DateDone)
+          return this.dataDetail_.DateDone.toString();
+          else return null; },
         set(value){
           //handle
           if(value==null){
@@ -279,15 +524,18 @@ export default {
         }
       },
       vDateSuggest:{
-        get(){ return  this.dataDetail_.DateSuggest },
+        get(){ 
+          if(this.dataDetail_.DateSuggest)
+          return this.dataDetail_.DateSuggest.toString();
+          else return null;
+          },
         set(value){
           //handle
           if(value==null){
             this.isValid.DateSuggest = true;
           }
           else this.isValid.DateSuggest = false;
-          this.dataDetail_.DateSuggest = value
-          
+          this.dataDetail_.DateSuggest = value;         
         }
       },
       vStatus:{
@@ -301,132 +549,17 @@ export default {
           this.dataDetail_.Status = value
           
         }
-      },
-      vPeopleInvol:{
-        get(){ return  this.dataDetail_.PeopleInvol },
-        set(value){
-          //handle
-          if(value==null){
-            this.isValid.PeopleInvol = true;
-          }
-          else this.isValid.PeopleInvol = false;
-          this.dataDetail_.PeopleInvol = value
-          console.log(value)
-        }
-      },
+      }
     },
     watch: {
-     
+      
     }
 
 }
 </script>
 
 <style>
-.icon-error{
-  background-color: #ff6161!important;
-  -webkit-mask-position: -240px -72px;
-    -moz-mask-position: -240px -72px;
-    -ms-mask-position: -240px -72px;
-    -o-mask-position: -240px -72px;
-    mask-position: -240px -72px;
-    position: relative;
-    top: -83%;
-    right: -79%;
-}
-.date .icon-error{
-  
-    top: -83%;
-    right: -73%;
-}
-.validate .dx-texteditor-container {
-    border: 1px solid #ff6161 !important;
-    
-}
-.validate .mx-input-wrapper {
-    border: 1px solid #ff6161 !important;
-}
-
-.x .ms-input {
-    width: 275px;
-    
-}
-.right .inputText {
-    padding-top: 10px;
-}
-.add-teammate{
-  cursor: pointer;
-}
-.text-add{
-  color: #3c4ada;
-  white-space: nowrap;
-    font-weight: 500;
-}
-.teammate-info{
-  font-style: italic;
-    color: #9fa4b4;
-   padding-right: 10px;
-    font-size: 14px;
-}
-.teammate-title{
-  font-size: 16px;
-    letter-spacing: .256px;
-    letter-spacing: .256px;
-    font-weight: 700;
-    padding-bottom: 20px;
-}
-.popup-content-item{
-  height: 35px;
-  margin-bottom: 16px;
-  width: 385px;
-  justify-content: space-between;
-}
-.required{
-  color: #ff0000;
-}
-.popup-content-item.right{
-  height: 85px;
-}
-.popup-content-left{
-  padding-right: 40px;
-}
-.input-search{
-  border: none;
-}
-.input-search:focus{
-  outline: none !important;
-  border: none !important;
-}
-.search:focus-within{
-  border: 1px solid #ec5504 !important;
-  
-}
-.search:hover{
-  border: 1px solid #ec5504 !important;
-  
-}
-.dx-show-invalid-badge.dx-selectbox.dx-textbox.dx-texteditor.dx-dropdowneditor-button-visible.dx-editor-underlined.dx-texteditor-empty.dx-widget.dx-dropdowneditor.dx-dropdowneditor-field-clickable {
-    height: 100%;
-}
-.dx-show-invalid-badge.dx-selectbox.dx-textbox.dx-texteditor.dx-dropdowneditor-button-visible.dx-editor-underlined.dx-widget.dx-dropdowneditor.dx-dropdowneditor-field-clickable{
-  height: 100%;
-}
-.icon-add-teammate{
-    -webkit-mask-position: -192px -24px;
-    -webkit-mask-position-x: -192px;
-    -webkit-mask-position-y: -24px;
-    -moz-mask-position: -192px -24px;
-    -ms-mask-position: -192px -24px;
-    -o-mask-position: -192px -24px;
-    mask-position: -192px -24px;
-    background-color: #3c4ada!important;
-}
- 
-  
-
-.grid-container-teammate{
-  width: 800px;
-}
+@import url(../../styles/views/misson-allowance-detail.css);
 </style>
 <style scoped>
 

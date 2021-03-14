@@ -12,7 +12,24 @@
               :show-data-before-search="false"
               :placeholder = "''"
               display-expr="Name"
-              value-expr="Name"
+              value-expr="EmployeeId"
+              v-model="value"
+              
+              ref="focusItem"
+
+        /> 
+        <DxSelectBox
+                v-if="inputType.status"
+              :search-enabled="true"
+              :data-source="status"
+              search-mode="contains"
+              search-expr="Name"
+              :search-timeout = "200"
+              :min-search-length = "0"
+              :show-data-before-search="false"
+              :placeholder = "''"
+              display-expr="Name"
+              value-expr="ID"
               v-model="value"
               
               ref="focusItem"
@@ -24,11 +41,12 @@
           :items="dataSelect"
           :search-enabled="true"
           v-model="tagBoxFormat"
+         
           height="100%"
           width="100%"
          
           display-expr="Name"
-            value-expr="ID"
+            value-expr="EmployeeId"
             :placeholder = "''"
 
         />
@@ -45,7 +63,7 @@ export default {
     props:{
         inputType: Object,
         model: {
-            type: String,
+           
             default: null
         },
         defaultDate:{
@@ -59,7 +77,12 @@ export default {
         tagBox:{
             type: String,
             default: null
-        }
+        },
+        selectVal:{
+            type: Array,
+            default: null
+        },
+        
     },
     components:{
         DxSelectBox,
@@ -69,25 +92,34 @@ export default {
     data() {
         return {
            
-            dataSelect:[
-                {Name:"Lê Việt Hoàng",ID:1},
-                {Name:"Lê Hoài Nam",ID:2},
-                {Name:"Tạ Long Khánh",ID:3},
-                {Name:"Nguyễn Hải Long",ID:4},
-            ],
+            dataSelect:null,
             value: null,
             dateFormat:null,
-            tagBoxFormat: null
+            tagBoxFormat: null,
+            status:[
+                {ID:1, Name: "Chờ duyệt"},
+                {ID:2, Name: "Đã duyệt"},
+                {ID:3, Name: "Từ chối"}
+            ]
         }
     },
+   
     mounted() {
+
+       
+            this.dataSelect = this.selectVal;
+      
         if(this.model) this.value = this.model;
+        this.dateFormat = this.defaultDate;
         if(this.focusItem){
                 
                 this.$refs['focusItem'].instance.focus();
             }
-        this.dateFormat = this.defaultDate;
+    
+        
         this.tagBoxFormat = this.formatTagbox(this.tagBox);
+       
+        
     },
     methods:{
        formatTagbox(tagBox){
@@ -98,10 +130,18 @@ export default {
        }
     },
      watch: {
-    // defaultDate(val) {
-    //  this.dateFormat = val;
+    
+    defaultDate(val) {
+     this.dateFormat = val;
      
-    // },
+    },
+    model(val){
+        this.value = val;
+    },
+    
+    selectVal(val){
+        this.dataSelect = val;
+    },
     dateFormat(val) {
      this.$emit('update:defaultDate',val)
      
@@ -109,17 +149,20 @@ export default {
     value(val){
             this.$emit('update:model',val)
         },
-    tagBoxFormat(val){
-        
-        var str = "";
-        if(val){
-            val.forEach(element => {
-                str+=(element.toString()+";")
-            });
+    tagBox(val){
+        this.tagBoxFormat = this.formatTagbox(val);
+    },
+        tagBoxFormat(val){
+            
+            var str = "";
+                if(val){
+                val.forEach(element => {
+                    if(element)
+                    str+=(element.toString()+";")
+                });
+            }
+            this.$emit('update:tagBox',str.slice(0,-1));
         }
-        
-        this.$emit('update:tagBox',str)
-    }
   },
 
 }

@@ -6,7 +6,8 @@
         <ms-draggable :columnInfo_.sync="columnInfo_" @close="isDraggable=!isDraggable"/>
       </div>
       <DxDataGrid
-        :data-source="dataGrid"
+        :data-source="dataGrid_"
+       
         :allow-column-reordering="true"
         :allow-column-resizing="true"
         :column-auto-width="true"
@@ -17,7 +18,7 @@
         :hoverStateEnabled="true"
         :noDataText="'Không có dữ liệu'"
         :selected-row-keys.sync="selectedRowKeys"
-        key-expr="ID"
+        key-expr="ApplicationId"
         @selection-changed="onSelectionChanged">
       >
         <DxColumn
@@ -44,6 +45,9 @@
           :data-field="item.field"
           
         />
+        <DxPaging :enabled="false"/>
+        
+        <DxColumnFixing :enable="true"/>
         <DxColumn
             :width="120"
             :height="40"
@@ -74,27 +78,28 @@
         </div>
         <div class="footer-right flex center">
           <div class="page-size center flex mgr-20" @click="$bus.$emit('dropdownMenuOpen','paginate')">
-            <div class="page-size-info center">10</div>
+            <div class="page-size-info center">{{pageSizeNow}}</div>
             <div class="icon icon-select"></div>
             <ms-dropdown-menu  :itemKey="'paginate'" :dropdownMenuItem="pageSizes"/>
           </div>
-          <div class="paginate-detail mgr-20">Từ <span style="font-weight: 700">1</span> đến <span style="font-weight: 700">10</span> bản ghi</div>
-          <div class="icon icon-prev mgr-20" ></div>
-          <div class="icon icon-next mgr-20"></div>
+          <div class="paginate-detail mgr-20">Từ <span style="font-weight: 700">{{firstDataItem}}</span> đến <span style="font-weight: 700">{{firstDataItem+count-1}}</span> bản ghi</div>
+          <div class="icon icon-prev mgr-20" @click="prevPage()"></div>
+          <div class="icon icon-next mgr-20" @click="nextPage()"></div>
         </div>
       </div>
     </div>
     <div v-if="filterPopup" class="grid-filter">
-      <ms-filter :columnInfo_="columnInfo_" @close="filterPopup = !filterPopup;"/>
+      <ms-filter :paging="true" :columnInfo_="columnInfo_" @close="filterPopup = !filterPopup;"/>
     </div>
-    <ms-popup-delete v-if="deletePopup"/>
+    <ms-popup-delete v-if="deletePopup" :deleteInfo="deleteInfo"/>
   </div>
 </template>
 <script>
 import {
   DxDataGrid,
   DxColumn,
- 
+  DxColumnFixing,
+  DxPaging,
   DxSelection  
  
 } from 'devextreme-vue/data-grid';
@@ -106,7 +111,9 @@ export default {
     components: {
     DxDataGrid,
     DxColumn,
-   
+   DxColumnFixing,
+   DxPaging,
+
     DxSelection
   },
   props:{
@@ -122,38 +129,48 @@ export default {
       dragging: false,
       isDraggable:false,
       pageSizes: [
-        {name: '5', value:5,checked:false},
-        {name:'10', value:10,checked:false},
-        {name:'20', value:20,checked:false}
+        {name: '15', value:15,checked:true},
+        {name:'25', value:25,checked:false},
+        {name:'50', value:50,checked:false},
+        {name: '100', value:100,checked:false},
+        
       ],
+      pageSizeNow:15,
+      pageNow:1,
+      firstDataItem:1,
       count: null,
       filterPopup: false,
       deletePopup: false,
       columnInfo_:false,
-      selectedRowKeys:null
+      selectedRowKeys:null,
+      dataGrid_:null,
+      deleteInfo:null
     };
   },
   mounted() {
+    this.dataGrid_ = this.dataGrid;
     this.columnInfo_ = this.columnInfo;
-    this.count = this.dataGrid ? this.dataGrid.length : null;
+    
      this.$bus.$on('closeDel',()=>{
        this.deletePopup = !this.deletePopup;
      }) ;
-    this.$bus.$on('checked',(name)=>{
-      
+    this.$bus.$on('checked',(value,itemKey)=>{
+      if(itemKey == "paginate"){
       this.pageSizes.forEach(element => {
         element.checked = false;
-        if(element.name == name){
+        if(element.value == value){
           element.checked = true;
+          this.pageSizeNow = parseInt(value);
+          this.firstDataItem = (this.pageSizeNow*this.pageNow-this.pageSizeNow+1);
         }
       });
+      }
     });
     this.$bus.$on('filter',()=>{
       this.filterPopup = ! this.filterPopup;
     });
-
-    console.log(this.columnInfo_)
     
+   
   },
   methods: {
     calculateCellValue(data) {
@@ -168,18 +185,40 @@ export default {
     editData(data){
      this.$bus.$emit('openDetail',data.data);
     },
-    deleteData(){
+    deleteData(data){
      this.deletePopup=!this.deletePopup;
+     this.deleteInfo = data.data;
     },
     onSelectionChanged() {
       //console.log(this.selectedRowKeys);
       this.$emit("onSelectionChanged", this.selectedRowKeys);
 
     },
+    nextPage(){
+      if(this.count == this.pageSizeNow)
+      this.pageNow = this.pageNow+1;
+    },
+    prevPage(){
+      if(this.pageNow > 1)
+      this.pageNow = this.pageNow-1;
+    },
   },
   watch:{
     columnInfo(val){
       this.columnInfo_ = val;
+    },
+    dataGrid(val){
+      this.count = val ? val.length : null;
+      this.dataGrid_= val;
+    },
+    firstDataItem(val){
+      this.$emit('updateFirstData',val)
+    },
+    pageSizeNow(val){
+      this.$emit('updatePageSize',val)
+    },
+    pageNow(val){
+      this.firstDataItem = (this.pageSizeNow*val-this.pageSizeNow+1);
     }
   }
 };
@@ -228,6 +267,7 @@ export default {
   font-weight: 500;
 }
 .icon-next{
+  cursor: pointer;
   -webkit-mask-position: -240px 0;
     -moz-mask-position: -240px 0;
     -ms-mask-position: -240px 0;
@@ -235,6 +275,7 @@ export default {
     mask-position: -240px 0;
 }
 .icon-prev{
+  cursor: pointer;
   -webkit-mask-position: -216px 0;
     -moz-mask-position: -216px 0;
     -ms-mask-position: -216px 0;
@@ -253,6 +294,9 @@ export default {
     border-radius: 50%;
    
 }
+.dx-row.dx-freespace-row.dx-state-hover{
+  background-color: #fff !important;
+}
 .dx-state-hover .delete{
   
   background: url(../../assets/icon/icon-common.svg) no-repeat -166px -21px;
@@ -266,11 +310,13 @@ export default {
 }
 
 .ms-dropdown-menu{
-  top: 480px;
+  top: 410px;
     right: 278px;
-    width: 80px;
+    width: 72px;
   
 }
+
+
 .paginate{
   height: 61px;
   width: calc(100% - 2px);
@@ -286,6 +332,7 @@ export default {
   width: 74px;
   border: 1px solid #bebebe;
   border-radius: 4px;
+  cursor: pointer;
 }
 #gridContainer {
   height: 440px;
@@ -330,6 +377,19 @@ export default {
 }
 </style>
 <style>
+.footer-right .ms-dropdown-menu ul li .drop-item-content {
+    text-decoration: none;
+    color: #000000B3;
+    width: auto;
+    padding-right: 22px;
+}
+.footer-right .ms-dropdown-menu ul li {
+    list-style: none;
+    justify-content: space-between;
+    padding-left: 8px;
+    border-radius: 4px;
+    height: 37px;
+}
 .dx-datagrid-table .dx-data-row.dx-state-hover:not(.dx-row-inserted):not(.dx-row-removed):not(.dx-edit-row):not(.dx-row-focused) > td:not(.dx-focused) {
   background-color: #ffede2 !important;
 }

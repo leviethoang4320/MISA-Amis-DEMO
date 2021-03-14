@@ -21,22 +21,22 @@ export default {
       dropdownMenuOpen:false,
       dropItemAll:{
         application:[
-          {name: "Đơn xin nghỉ",checked:false},
-          {name: "Đề nghị cập nhật công",checked:false},
-          {name: "Đề nghị công tác",checked:false},
-          {name: "Đơn làm thêm giờ",checked:false},
-          {name: "Đơn đi muộn/về sớm",checked:false},
-          {name: "Bảng tổng hợp nghỉ phép",checked:false}
+          {name: "Đơn xin nghỉ",checked:false,value:1},
+          {name: "Đề nghị cập nhật công",checked:false,value:2},
+          {name: "Đề nghị công tác",checked:false,value:3},
+          {name: "Đơn làm thêm giờ",checked:false,value:4},
+          {name: "Đơn đi muộn/về sớm",checked:false,value:5},
+          {name: "Bảng tổng hợp nghỉ phép",checked:false,value:6}
         ],
         timeKeeping:[
-          {name: "Bảng chấm công chi tiết",checked:false},
-          {name: "Bảng chấm công tổng hợp",checked:false},
-          {name: "Dữ liệu máy chấm công",checked:false},
+          {name: "Bảng chấm công chi tiết",checked:false,value:1},
+          {name: "Bảng chấm công tổng hợp",checked:false,value:2},
+          {name: "Dữ liệu máy chấm công",checked:false,value:3},
         ],
         timeShift:[
-          {name: "Bảng phân ca tổng hợp",checked:false},
-          {name: "Danh sách ca",checked:false},
-          {name: "Danh sách phân ca chi tiết",checked:false},
+          {name: "Bảng phân ca tổng hợp",checked:false,value:1},
+          {name: "Danh sách ca",checked:false,value:2},
+          {name: "Danh sách phân ca chi tiết",checked:false,value:3},
         ],
         
       },
@@ -52,11 +52,11 @@ export default {
 
     
     this.itemKey = this.dropdownItem.key;
-    this.$bus.$on('checked',(name,key)=>{
+    this.$bus.$on('checked',(value,key)=>{
       if(this.dropItemAll[key] != null){
         this.dropItemAll[key].forEach(element => {
           element.checked = false;
-          if(element.name == name){
+          if(element.value == value){
             element.checked = true;
           }
         });

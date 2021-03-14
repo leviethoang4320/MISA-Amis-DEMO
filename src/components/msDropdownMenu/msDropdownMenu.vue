@@ -1,7 +1,7 @@
 <template>
   <div class="ms-dropdown-menu" v-if="dropdownMenuOpen">
       <ul>
-          <li class="flex center" v-for="(item,index) in dropdownMenuItem" :key="index" @click="$bus.$emit('checked',item.name,itemKey)">
+          <li class="flex center" :class="{'focusDrop':item.checked}" v-for="(item,index) in dropdownMenuItem" :key="index" @click="$bus.$emit('checked',item.value,itemKey)">
               <div class="drop-item-content"> {{item.name}}</div>
               <div v-if="item.checked" class="icon-check"></div>
           </li>
@@ -14,7 +14,7 @@ export default {
     name:"MsDropdownMenu",
     props:{
         dropdownMenuItem: Array,
-        itemKey:String
+        itemKey:String,
     },
     data() {
         return {

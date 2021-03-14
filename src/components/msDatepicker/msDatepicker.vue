@@ -4,11 +4,13 @@
       <date-picker
         v-model="dateFormat"
         type="datetime"
-        valueType = "format"
+        :default="null"
+        valueType = "YYYY-MM-DDTHH:mm:ss"
         format = "DD/MM/YYYY HH:mm"
         :show-time-panel="showTimePanel"
         @close="handleOpenChange"
         :clearable="false"
+        placeholder="DD/MM/YYYY HH:mm"
       >
         <template v-slot:footer>
           <button class="mx-btn mx-btn-text" @click="toggleTimePanel">
@@ -42,16 +44,18 @@ export default {
     };
   },
   mounted() {
-     this.dateFormat ? this.defaultDate = this.formatDate(this.defaultDate) : null ;
+    
+     this.dateFormat = this.defaultDate ;
   },
   watch: {
     defaultDate(val) {
-     this.dateFormat = this.formatDate(val) ;
-     console.log('a');
+      
+     this.dateFormat = val ;
+    
     },
     dateFormat(val) {
-      this.$emit("update:defaultDate",  this.formatDate2(val))
-      console.log('e');
+      this.$emit("update:defaultDate",  val)
+      
     }
   },
   methods: {
@@ -67,27 +71,7 @@ export default {
     handleRangeClose() {
       this.showTimeRangePanel = false;
     },
-    formatDate(date) {
-      var now = new Date(date);
-      var day = ("0" + now.getDate()).slice(-2);
-      var month = ("0" + (now.getMonth()+1)).slice(-2);
-      var hour = ("0" + (now.getHours())).slice(-2);
-      var minute = ("0" + (now.getMinutes())).slice(-2);
-      var today =  (day) + "/" + (month) + "/" +  + now.getFullYear() 
-      + " " + (hour)+":"+(minute);
-      return today;
-    },
-    formatDate2(date){
-      if(date == null) return null;
-        let day = date.substr(0,2);
-        let month = date.substr(3,2);
-        let year = date.substr(6,4);
-        let minute = date.substr(11,2);
-        let seconds = date.substr(14,2);
-        let a = (new Date(year,month-1,day,minute,seconds)).toString();
-       
-        return a;
-      } 
+    
   },
 };
 </script>
@@ -108,7 +92,7 @@ export default {
     color: #555;
     background-color: #fff;
     border: none;
-    /* border-radius: 4px; */
+    
     -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
     box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
 }

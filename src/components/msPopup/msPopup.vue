@@ -13,7 +13,7 @@
               <slot></slot>
           </div>
           <div class="popup-toolbar flex">
-              <div class="btn-del">
+              <div class="btn-del" @click="close()">
                 <ms-button :btnTitle="'Hủy'"/>
               </div>
               <div class="btn-save" @click="save()">
@@ -36,14 +36,18 @@ export default {
     methods:{
         close(){
             if(this.status == 1)
-            this.$bus.$emit('close');
+            this.$bus.$emit('closeDetail');
             if(this.status == 2)
             this.$bus.$emit('closeTeammate');
             if(this.status == 3)
             this.$bus.$emit('closeDel');
         },
         save(){
+            if(this.status == 3)
+            this.$emit('delete');
+            else
             this.$emit('save');
+
         }
     }
 

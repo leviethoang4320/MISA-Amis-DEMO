@@ -1,0 +1,36 @@
+C:\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.deps.json
+C:\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.dll
+C:\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.pdb
+C:\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.csprojAssemblyReference.cache
+C:\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.AssemblyInfoInputs.cache
+C:\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.AssemblyInfo.cs
+C:\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.csproj.CoreCompileInputs.cache
+C:\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.dll
+C:\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.pdb
+C:\Users\lvhoang\Desktop\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.deps.json
+C:\Users\lvhoang\Desktop\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.dll
+C:\Users\lvhoang\Desktop\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.pdb
+C:\Users\lvhoang\Desktop\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.csprojAssemblyReference.cache
+C:\Users\lvhoang\Desktop\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.AssemblyInfoInputs.cache
+C:\Users\lvhoang\Desktop\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.AssemblyInfo.cs
+C:\Users\lvhoang\Desktop\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.csproj.CoreCompileInputs.cache
+C:\Users\lvhoang\Desktop\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.dll
+C:\Users\lvhoang\Desktop\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.pdb
+C:\Users\taikh\OneDrive\Máy tính\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.deps.json
+C:\Users\taikh\OneDrive\Máy tính\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.dll
+C:\Users\taikh\OneDrive\Máy tính\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.pdb
+C:\Users\taikh\OneDrive\Máy tính\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.csprojAssemblyReference.cache
+C:\Users\taikh\OneDrive\Máy tính\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.AssemblyInfoInputs.cache
+C:\Users\taikh\OneDrive\Máy tính\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.AssemblyInfo.cs
+C:\Users\taikh\OneDrive\Máy tính\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.csproj.CoreCompileInputs.cache
+C:\Users\taikh\OneDrive\Máy tính\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.dll
+C:\Users\taikh\OneDrive\Máy tính\MF716_LVHOANG\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.pdb
+C:\MISA Fresher 2\BackEnd\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.deps.json
+C:\MISA Fresher 2\BackEnd\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.dll
+C:\MISA Fresher 2\BackEnd\MF_DEMO_API\MISA.Common\bin\Debug\netcoreapp3.1\MISA.Common.pdb
+C:\MISA Fresher 2\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.csprojAssemblyReference.cache
+C:\MISA Fresher 2\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.AssemblyInfoInputs.cache
+C:\MISA Fresher 2\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.AssemblyInfo.cs
+C:\MISA Fresher 2\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.csproj.CoreCompileInputs.cache
+C:\MISA Fresher 2\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.dll
+C:\MISA Fresher 2\BackEnd\MF_DEMO_API\MISA.Common\obj\Debug\netcoreapp3.1\MISA.Common.pdb

@@ -3,18 +3,19 @@
       <div class="content-header flex center">
         <div v-if="!deleteMode" class="content-header-left flex">
           <div class="title">Quản lý đi công tác</div>
-          <div class="status flex center">
-            <div class="status-tile" style="color: gray; margin-right: 6px;">Trạng thái:</div>
-            <b>Tất cả</b>
+          <div class="status flex center" @click="$bus.$emit('dropdownMenuOpen','status')">
+            <div class="status-tile"  style="color: gray; margin-right: 6px;">Trạng thái:</div>
+            <b>{{statusNow.name}}</b>
             <div class="icon icon-status"></div>
+            <ms-dropdown-menu  :itemKey="'status'" :dropdownMenuItem="status"/>
           </div>
         </div>
         <div v-if="!deleteMode" class="content-header-right flex" >
           <div class="search flex center">
             <div class="icon icon-search"></div>
-            <input class="input-search" placeholder="Tìm kiếm" type="text">
+            <input class="input-search" v-model="search" @change="loadData()" placeholder="Tìm kiếm" type="text">
           </div>
-          <div class="btn-add center" @click="openDetail()">
+          <div class="btn-add center" @click="openDetail(0)">
             <ms-button :btnTitle="'Thêm '" >
               <div class="icon icon-add"  ></div>
             </ms-button>
@@ -30,7 +31,7 @@
         <div v-if="deleteMode" class="unselected flex">
           Bỏ chọn 
         </div>
-        <div class="btn-quick-del">
+        <div class="btn-quick-del" @click="deleteConfirm()">
           <ms-button :btnTitle="'Xóa '">
               <div class=" icon-quick-del"></div>
           </ms-button>
@@ -38,21 +39,22 @@
       </div>
       </div> 
       <div class="grid-container">
-        <ms-grid :columnInfo="columnInfo" :dataGrid="applications" @onSelectionChanged="changeDel"/>
+        <ms-grid @updateFirstData="updateFirstData" @updatePageSize="updatePageSize" :columnInfo="columnInfo" :dataGrid="applications" @onSelectionChanged="changeDel"/>
       </div>
-      <misson-allowance-detail v-if="openPopup" :dataDetail="dataDetail"/>
+      <misson-allowance-detail v-if="openPopup" :dataDetail="dataDetail" :action="action" @closeDetail="closeDetail"/>
   </div>
 </template>
 
 <script>
-import service from '@/data.js';
+import ApplicationAPI from '@/api/components/Application/ApplicationAPI.js'
+
 import MissonAllowanceDetail from './MissonAllowanceDetail.vue';
-// import { delete } from 'vue/types/umd';
+
 export default {
   components: { MissonAllowanceDetail },
     data() {
         return {
-            applications: service.getApplications(),
+            applications: null,
             columnInfo:[
                 {
                     id:1,
@@ -66,7 +68,7 @@ export default {
                 {
                     id:2,
                     name:"Người đề nghị",
-                    field:"PeopleSuggest",
+                    field:"PeopleSuggestName",
                     visible:true,
                     filter:false,
                     checkDel:false,
@@ -83,7 +85,7 @@ export default {
                 {
                     id:4,
                     name:"Người duyệt",
-                    field:"Censor",
+                    field:"CensorName",
                     visible:true,
                     filter:false,
                     checkDel:false,
@@ -120,46 +122,140 @@ export default {
                 {
                     id:8,
                     name:"Trạng thái",
-                    field:"Status",
+                    field:"StatusName",
                     visible:true,
                     filter:false,
                     checkDel:false,
                     required: false
                 },
             ],
-             dataDetail: null,
-             
-             openPopup:false,
-              deleteMode:false,
-              lengthDel:0
+            dataDetail: null,             
+            openPopup:false,
+            deleteMode:false,
+            lengthDel:0,
+            action: null,         
+            firstDataItem:1,
+            pageSizeNow:15,
+            deleteData:null,
+            deleteResult: null,
+            status: [
+            {name: 'Tất cả', value:3,checked:true},
+            {name:'Chờ duyệt', value:1,checked:false},
+            {name:'Đã duyệt', value:2,checked:false},
+            {name: 'Từ chối', value:0,checked:false},        
+            ],
+            statusNow:{
+              value:3,
+              name:'Tất cả'
+            },
+            search:""
         }
     },
-    mounted() {
-      this.$bus.$on('close',()=>{
+  
+   mounted() {
+     //load dữ liệu
+      this.loadData();
+      
+      //đóng popoup
+      this.$bus.$on('closeDetail',()=>{        
         this.closeDetail();
       });
-       this.$bus.$on('openDetail',(data)=>{
-            this.openDetail();
-            console.log(data, 1)
-            this.dataDetail = data;
-        })
+
+      //mở detail với trạng thái sửa
+      this.$bus.$on('openDetail',(data)=>{
+        this.openDetail(1);          
+        this.dataDetail = data;
+      });
+      
+      //load lại trang để cập nhật dữ liệu
+      this.$bus.$on('reload',()=>{
+        this.loadData();
+      });
+
+      //lọc trạng thái
+      this.$bus.$on('checked',(value,itemKey)=>{
+        if(itemKey == "status")
+        this.status.forEach(element => {
+          element.checked = false;
+          if(element.value == value){
+            element.checked = true;
+            this.statusNow.name = element.name;
+            this.statusNow.value = value;
+            this.loadData();
+          }
+        });
+      });
+      
     },
     methods:{
-      closeDetail(){
-        this.openPopup=!this.openPopup;
+      //load dữ liệu
+      async loadData(){
+        var pagingData = new Object;
+        pagingData.pageSizeNow = this.pageSizeNow;
+        pagingData.firstDataItem = this.firstDataItem - 1;
+        pagingData.status = this.statusNow.value;
+        pagingData.filter = this.search;
+        this.applications = (await ApplicationAPI.paging(pagingData)).data;      
+        this.applications.forEach(element => {
+          element.DateSuggest = this.formatDate(element.DateSuggest);
+         
+          element.DateMove = this.formatDate(element.DateMove);
+          
+          element.DateDone = this.formatDate(element.DateDone);
+         
+        });
       },
-      openDetail(){
+      //đóng popup detail
+      closeDetail(){
+        this.openPopup=false;
+      },
+      //mở Dialog detail với trạng thái 1: sửa, 0: thêm mới
+      openDetail(action){
+        this.action = action;
         this.dataDetail = null;
         this.openPopup=!this.openPopup;
         
       },
+      //xử lý click ckeckbox ở đầu dòng
       changeDel(e){
+        this.deleteData = e;
         this.lengthDel = e.length;
         if(e.length > 0 ){
           this.deleteMode = true;
         }
         else this.deleteMode = false;
+      },
+      //format ngày để hiển thị lên bảng danh sách về yểu dd/mm/yyy hh:mm
+      formatDate(date){
+        let day = date.substr(8,2);
+        let month = date.substr(5,2);
+        let year = date.substr(0,4);
+        let hour = date.substr(11,2);
+        let minute = date.substr(14,2);
+        let a = day+"/"+month+"/"+year+" "+hour+":"+minute;
+        
+        return a;
+      },
+      //xử lý khi thay đổi vị trí bản ghi bắt đầu
+      updateFirstData(val){
+        this.firstDataItem = val;
+        this.loadData();
+      },
+      //xử lý khi thay đổi vị trí ban đầu
+      updatePageSize(val){
+        this.pageSizeNow = val;
+        this.loadData();
+      },
+      //Xóa nhiều
+      deleteConfirm(){
+        this.deleteResult = (ApplicationAPI.deletes(this.deleteData)).data;
+        setTimeout(() => {
+          this.loadData();
+        }, 500);        
       }
+    },
+    watch:{
+      
     }
 }
 </script>
@@ -176,6 +272,13 @@ export default {
 
 </style>
 <style scoped>
+.ms-dropdown-menu{
+  top: 96px;
+    left: 254px;
+    width: 120px;
+  
+}
+ 
 .icon-quick-del{
 
   width: 24px;
@@ -195,4 +298,24 @@ export default {
     padding-right: 15px;
 
 }
+</style>
+<style>
+/* .status .ms-dropdown-menu ul li .drop-item-content {
+    text-decoration: none;
+    color: #000000B3;
+    width: auto;
+    padding-right: 22px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+.status .ms-dropdown-menu ul li {
+    list-style: none;
+    justify-content: space-between;
+    padding-left: 8px;
+    border-radius: 4px;
+    height: 37px;
+} */
+@import url(../../styles/views/misson-allowance.css);
+
+
 </style>

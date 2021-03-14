@@ -115,9 +115,7 @@ export default {
     
   },
   watch: {
-    searchValue(val) {
-      console.log(val)
-    }
+    
   }
   
   

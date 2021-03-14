@@ -12,7 +12,10 @@
    box-shadow: 0px 0px 10px 0 rgb(0 0 0 / 10%);
    padding: 8px;
    z-index: 11;
-   margin: 0;
+   margin: 4px 0;
+}
+.focusDrop{
+   background-color: var(--primary-bg);
 }
 .ms-dropdown-menu ul {
    padding: 0;

@@ -1,0 +1,15 @@
+.status .ms-dropdown-menu ul li .drop-item-content {
+    text-decoration: none;
+    color: #000000B3;
+    width: auto;
+    padding-right: 22px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+.status .ms-dropdown-menu ul li {
+    list-style: none;
+    justify-content: space-between;
+    padding-left: 8px;
+    border-radius: 4px;
+    height: 37px;
+}

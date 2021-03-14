@@ -1,6 +1,6 @@
 <template>
   <div class="ms-popup-delete">
-        <ms-popup :btnTitle="'Xóa'" :action="'Cảnh báo'" :status="3" >
+        <ms-popup @delete="del()" :btnTitle="'Xóa'" :action="'Cảnh báo'" :status="3" >
             <p>Bạn có chắc muốn xóa Đơn này không?</p>
         </ms-popup>
 
@@ -8,9 +8,27 @@
 </template>
 
 <script>
+import ApplicationAPI from '@/api/components/Application/ApplicationAPI.js'
 export default {
-    name: "MsPopupDelete"
-
+    name: "MsPopupDelete",
+    props:{
+        deleteInfo: Object
+    },
+    mounted() {
+        
+        
+    },
+    methods: {
+        del(){
+            ApplicationAPI.delete(this.deleteInfo.ApplicationId);
+             this.$bus.$emit('closeDel');
+              setTimeout(() => {
+                this.$bus.$emit('reload');
+                
+                
+                }, 500);
+        }
+    },
 }
 </script>
 
@@ -33,7 +51,7 @@ export default {
    padding-top: 0px;
 }
 .ms-popup-delete .popup-detail{
-   top: calc(50% - 95px);
+   top: 90px;
     left: calc(50% - 245px);
 }
 .ms-popup-delete .btn-save .ms-button{

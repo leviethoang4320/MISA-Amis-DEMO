@@ -1,0 +1,9 @@
+C:\MF_DEMO_API\MISA.Infarstructure\bin\Debug\netcoreapp3.1\MISA.Infarstructure.deps.json
+C:\MF_DEMO_API\MISA.Infarstructure\bin\Debug\netcoreapp3.1\MISA.Infarstructure.dll
+C:\MF_DEMO_API\MISA.Infarstructure\bin\Debug\netcoreapp3.1\MISA.Infarstructure.pdb
+C:\MF_DEMO_API\MISA.Infarstructure\obj\Debug\netcoreapp3.1\MISA.Infarstructure.csprojAssemblyReference.cache
+C:\MF_DEMO_API\MISA.Infarstructure\obj\Debug\netcoreapp3.1\MISA.Infarstructure.AssemblyInfoInputs.cache
+C:\MF_DEMO_API\MISA.Infarstructure\obj\Debug\netcoreapp3.1\MISA.Infarstructure.AssemblyInfo.cs
+C:\MF_DEMO_API\MISA.Infarstructure\obj\Debug\netcoreapp3.1\MISA.Infarstructure.csproj.CoreCompileInputs.cache
+C:\MF_DEMO_API\MISA.Infarstructure\obj\Debug\netcoreapp3.1\MISA.Infarstructure.dll
+C:\MF_DEMO_API\MISA.Infarstructure\obj\Debug\netcoreapp3.1\MISA.Infarstructure.pdb

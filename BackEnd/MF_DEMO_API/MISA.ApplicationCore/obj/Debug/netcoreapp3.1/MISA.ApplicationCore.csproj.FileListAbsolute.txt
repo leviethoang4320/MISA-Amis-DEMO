@@ -1,0 +1,14 @@
+C:\MF_DEMO_API\MISA.ApplicationCore\bin\Debug\netcoreapp3.1\MISA.ApplicationCore.deps.json
+C:\MF_DEMO_API\MISA.ApplicationCore\bin\Debug\netcoreapp3.1\MISA.ApplicationCore.dll
+C:\MF_DEMO_API\MISA.ApplicationCore\bin\Debug\netcoreapp3.1\MISA.ApplicationCore.pdb
+C:\MF_DEMO_API\MISA.ApplicationCore\bin\Debug\netcoreapp3.1\MISA.Infarstructure.dll
+C:\MF_DEMO_API\MISA.ApplicationCore\bin\Debug\netcoreapp3.1\MISA.Infarstructure.pdb
+C:\MF_DEMO_API\MISA.ApplicationCore\obj\Debug\netcoreapp3.1\MISA.ApplicationCore.csprojAssemblyReference.cache
+C:\MF_DEMO_API\MISA.ApplicationCore\obj\Debug\netcoreapp3.1\MISA.ApplicationCore.Properties.Resources.resources
+C:\MF_DEMO_API\MISA.ApplicationCore\obj\Debug\netcoreapp3.1\MISA.ApplicationCore.csproj.GenerateResource.cache
+C:\MF_DEMO_API\MISA.ApplicationCore\obj\Debug\netcoreapp3.1\MISA.ApplicationCore.AssemblyInfoInputs.cache
+C:\MF_DEMO_API\MISA.ApplicationCore\obj\Debug\netcoreapp3.1\MISA.ApplicationCore.AssemblyInfo.cs
+C:\MF_DEMO_API\MISA.ApplicationCore\obj\Debug\netcoreapp3.1\MISA.ApplicationCore.csproj.CoreCompileInputs.cache
+C:\MF_DEMO_API\MISA.ApplicationCore\obj\Debug\netcoreapp3.1\MISA.ApplicationCore.csproj.CopyComplete
+C:\MF_DEMO_API\MISA.ApplicationCore\obj\Debug\netcoreapp3.1\MISA.ApplicationCore.dll
+C:\MF_DEMO_API\MISA.ApplicationCore\obj\Debug\netcoreapp3.1\MISA.ApplicationCore.pdb

@@ -41,6 +41,9 @@ Vue.component(msDatepicker.name,msDatepicker);
 import msPopupDelete from '@/components/Notification/msPopupDelete.vue';
 Vue.component(msPopupDelete.name,msPopupDelete);
 
+import msPopupChangeData from '@/components/Notification/msPopupChangeData.vue';
+Vue.component(msPopupChangeData.name,msPopupChangeData);
+
 import msFilter from '@/components/msFilter/msFilter.vue';
 Vue.component(msFilter.name,msFilter);
 
