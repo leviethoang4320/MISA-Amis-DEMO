@@ -67,7 +67,8 @@
     letter-spacing: .384px!important;
 }
 .status{
-    padding-left: 50px;
+    margin-left: 50px;
+    cursor: pointer;
 }
 .status-option{
     border: none;

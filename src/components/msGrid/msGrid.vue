@@ -171,7 +171,8 @@ export default {
         if(element.value == value){
           element.checked = true;
           this.pageSizeNow = parseInt(value);
-          this.firstDataItem = (this.pageSizeNow*this.pageNow-this.pageSizeNow+1);
+          // this.firstDataItem = (this.pageSizeNow*this.pageNow-this.pageSizeNow+1);
+          // this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
         }
       });
       }
@@ -221,20 +222,26 @@ export default {
       {
       this.count = val.count ;
       this.dataGrid_= val.res;
-      this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
+      
+        this.firstDataItem = (this.pageSizeNow*this.pageNow-this.pageSizeNow+1);
+        this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
+     
+      
       }
     },
     firstDataItem(val){
       this.$emit('updateFirstData',val);
-      this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
+      // this.firstDataItem = (this.pageSizeNow*this.pageNow-this.pageSizeNow+1);
+      // this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
     },
     pageSizeNow(val){
       this.$emit('updatePageSize',val);
-      this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
+      // this.firstDataItem = (this.pageSizeNow*this.pageNow-this.pageSizeNow+1);
+      // this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
     },
     pageNow(val){
       this.firstDataItem = (this.pageSizeNow*val-this.pageSizeNow+1);
-      this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
+      // this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
     }
   }
 };
@@ -327,7 +334,8 @@ export default {
 }
 
 .ms-dropdown-menu{
-  top: 410px;
+  margin: 0;
+  top: 393px;
     right: 278px;
     width: 72px;
   
@@ -395,7 +403,8 @@ export default {
 }
 </style>
 <style>
-.dx-list-item-selected {
+@import url(../../styles/components/msGrid.css);
+/* .dx-list-item-selected {
     background-color: var(--primary-bg) !important;
     color: #212121;
 }
@@ -403,7 +412,7 @@ export default {
     text-decoration: none;
     color: #212121;
     width: auto;
-    padding-right: 22px;
+    padding-right: 15px;
 }
 .footer-right .ms-dropdown-menu ul li {
     list-style: none;
@@ -518,8 +527,7 @@ td{
     color: #212121;
 }
 .dx-datagrid .dx-row > td {
-    /* padding-top: 14px !important;
-    padding-bottom: 14px !important; */
+   
     font-size: 14px;
     line-height: 20px;
 }
@@ -543,7 +551,7 @@ td{
    
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
-    /* border: 1px solid #ddd; */
+  
 }
 .icon-draggable{
   -webkit-mask-position: -312px -72px;
@@ -623,5 +631,5 @@ td.dx-command-select.dx-cell-focus-disabled.dx-editor-cell.dx-editor-inline-bloc
     height: 100%;
     background: #9e9e9e!important;
     border-radius: 10px;
-}
+} */
 </style>

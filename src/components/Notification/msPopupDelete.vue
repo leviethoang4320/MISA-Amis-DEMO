@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import notify from 'devextreme/ui/notify';
 import ApplicationAPI from '@/api/components/Application/ApplicationAPI.js'
 export default {
     name: "MsPopupDelete",
@@ -22,10 +23,11 @@ export default {
         del(){
             ApplicationAPI.delete(this.deleteInfo.ApplicationId);
              this.$bus.$emit('closeDel');
+             
               setTimeout(() => {
                 this.$bus.$emit('reload');               
-                
                 }, 500);
+             notify("Thành công", "success",1000);
         }
     },
 }

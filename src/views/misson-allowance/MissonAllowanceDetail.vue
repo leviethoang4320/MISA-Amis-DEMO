@@ -6,22 +6,20 @@
             <div class="popup-content-item center flex" :class="{validate:isValid.PeopleSuggest}" id="focusItem">
                 <div class="inputText" >Người đề nghị <span class="required"> *</span></div>
                 <div class="ms-input">
-                    <DxSelectBox
-                          
-                          :search-enabled="true"
-                          :data-source="EmployeeData"
-                          search-mode="contains"
-                          search-expr="Name"
-                          :search-timeout = "200"
-                          :min-search-length = "0"
-                          :show-data-before-search="false"
-                          :placeholder = "''"
-                          display-expr="Name"
-                          value-expr="EmployeeId"
-                          v-model="vPeopleSuggest"
-                          
-                          ref="focusItem"
-
+                    <DxSelectBox   
+                      noDataText = "Không có dữ liệu"                       
+                      :search-enabled="true"
+                      :data-source="EmployeeData"
+                      search-mode="contains"
+                      search-expr="Name"
+                      :search-timeout = "200"
+                      :min-search-length = "0"
+                      :show-data-before-search="false"
+                      :placeholder = "''"
+                      display-expr="Name"
+                      value-expr="EmployeeId"
+                      v-model="vPeopleSuggest"                          
+                      ref="focusItem"
                     /> 
                     <div class="icon icon-error" id="tooltipPeopleSuggest" @mouseenter="togglePeopleSuggest"
                         @mouseleave="togglePeopleSuggest" v-if="isValid.PeopleSuggest">
@@ -36,7 +34,6 @@
                     </DxTooltip>
                 </div>                
             </div>
-
             <div class="popup-content-item center flex">
                 <div class="inputText">Đơn vị công tác </div>
                 <input v-model="Department.name" disabled="true" style=" width:220px; padding:8px; font-size: 14px"/>
@@ -44,21 +41,19 @@
             <div class="popup-content-item center flex" :class="{validate:isValid.Censor}">
                 <div class="inputText"   >Người duyệt <span class="required"> *</span></div>
                 <div class="ms-input" >
-                  <DxSelectBox
-                         
-                        :search-enabled="true"
-                        :data-source="CensorData"
-                        search-mode="contains"
-                        search-expr="Name"
-                        :search-timeout = "200"
-                        :min-search-length = "0"
-                        :show-data-before-search="false"
-                        :placeholder = "''"
-                        display-expr="Name"
-                        value-expr="EmployeeId"
-                        v-model="vCensor"
-                        
-                      
+                  <DxSelectBox   
+                    noDataText = "Không có dữ liệu"                         
+                    :search-enabled="true"
+                    :data-source="CensorData"
+                    search-mode="contains"
+                    search-expr="Name"
+                    :search-timeout = "200"
+                    :min-search-length = "0"
+                    :show-data-before-search="false"
+                    :placeholder = "''"
+                    display-expr="Name"
+                    value-expr="EmployeeId"
+                    v-model="vCensor"                                              
                   /> 
                   <div class="icon icon-error" id="tooltipCensor" @mouseenter="toggleCensor"
                         @mouseleave="toggleCensor" v-if="isValid.Censor">
@@ -82,6 +77,16 @@
                         @mouseleave="toggleDateSuggest" v-if="isValid.DateSuggest">
                   </div>
                     <DxTooltip
+                      v-if="errorDateMove"
+                      :visible="DateSuggestVisible"
+                      :close-on-outside-click="false"
+                      target="#tooltipDateSuggest"
+                      position="top"
+                    >
+                      Ngày đề nghị không được lớn hơn ngày đi
+                    </DxTooltip>
+                    <DxTooltip
+                      v-else
                       :visible="DateSuggestVisible"
                       :close-on-outside-click="false"
                       target="#tooltipDateSuggest"
@@ -100,6 +105,25 @@
                         @mouseleave="toggleDateMove" v-if="isValid.DateMove">
                   </div>
                     <DxTooltip
+                      v-if="errorDateMove"
+                      :visible="DateMoveVisible"
+                      :close-on-outside-click="false"
+                      target="#tooltipDateMove"
+                      position="top"
+                    >
+                      Ngày đi không được nhỏ hơn ngày đề nghị
+                    </DxTooltip>
+                    <DxTooltip
+                      v-else-if="errorDateDone"
+                      :visible="DateMoveVisible"
+                      :close-on-outside-click="false"
+                      target="#tooltipDateMove"
+                      position="top"
+                    >
+                      Ngày đi không được lớn hơn ngày về
+                    </DxTooltip>
+                    <DxTooltip
+                      v-else
                       :visible="DateMoveVisible"
                       :close-on-outside-click="false"
                       target="#tooltipDateMove"
@@ -117,6 +141,16 @@
                         @mouseleave="toggleDateDone" v-if="isValid.DateDone">
                   </div>
                     <DxTooltip
+                      v-if="errorDateDone"
+                      :visible="DateDoneVisible"
+                      :close-on-outside-click="false"
+                      target="#tooltipDateDone"
+                      position="top"
+                    >
+                      Ngày về không nhỏ hơn ngày đi
+                    </DxTooltip>
+                    <DxTooltip
+                      v-else
                       :visible="DateDoneVisible"
                       :close-on-outside-click="false"
                       target="#tooltipDateDone"
@@ -137,26 +171,22 @@
                 <div class="ms-input"> 
                   <textarea v-model="dataDetail_.Reason"  name="" class="input-text" cols="30" rows="10"></textarea>
                 </div>
-
             </div>
           </div>
           <div class="popup-content-right">
             <div class="popup-content-item right x flex">
                 <div class="inputText">Người liên quan</div>
                 <div class="ms-input">
-                  <DxTagBox
-                  
-                    :items="EmployeeData"
+                  <DxTagBox       
+                    noDataText = "Không có dữ liệu"              
+                    :items="PeopleSupportData"
                     :search-enabled="true"
-                    v-model="vPeopleInvol"
-                  
+                    v-model="vPeopleInvol"                  
                     height="100%"
-                    width="100%"
-                  
+                    width="100%"                  
                     display-expr="Name"
-                      value-expr="EmployeeId"
-                      :placeholder = "''"
-
+                    value-expr="EmployeeId"
+                    :placeholder = "''"
                   />
                   <div class="icon-down" ></div>
                 </div>
@@ -170,54 +200,47 @@
             <div class="popup-content-item right x flex">
                 <div class="inputText">Người hỗ trợ</div>
                 <div class="ms-input">
-                    <DxTagBox
-                  
-                    :items="EmployeeData"
-                    :search-enabled="true"
-                    
-                    v-model="vPeopleSupport"
-                    height="100%"
-                    width="100%"
-                  
-                    display-expr="Name"
-                      value-expr="EmployeeId"
-                      :placeholder = "''"
-
-                    />
-                    <div class="icon-down" ></div>
+                  <DxTagBox   
+                  noDataText = "Không có dữ liệu"                  
+                  :items="PeopleSupportData"
+                  :search-enabled="true"                    
+                  v-model="vPeopleSupport"
+                  height="100%"
+                  width="100%"                  
+                  display-expr="Name"
+                    value-expr="EmployeeId"
+                    :placeholder = "''"
+                  />
+                  <div class="icon-down" ></div>
                 </div>
             </div>
             <div class="popup-content-item right x flex">
                 <div class="inputText">Ghi chú</div>
                 <div class="ms-input">
-                  <textarea v-model="dataDetail_.Note"  name="" class="input-text" cols="30" rows="10"></textarea>
-                  
+                  <textarea v-model="dataDetail_.Note"  name="" class="input-text" cols="30" rows="10"></textarea>                  
                 </div>
             </div>
             <div class="popup-content-item center x flex" :class="{validate:isValid.Status}" style="witdh=275px">
                 <div class="inputText">Trạng thái <span class="required"> *</span></div>
                 <div class="ms-input">
                     <DxSelectBox
-                          :search-enabled="true"
-                          :data-source="statusData"
-                          search-mode="contains"
-                          search-expr="Name"
-                          :search-timeout = "200"
-                          :min-search-length = "0"
-                          :show-data-before-search="false"
-                          :placeholder = "''"
-                          display-expr="Name"
-                          value-expr="ID"
-                          v-model="dataDetail_.Status"
-                          
-                          
-                        
+                      noDataText = "Không có dữ liệu"   
+                      :search-enabled="true"
+                      :data-source="statusData"
+                      search-mode="contains"
+                      search-expr="Name"
+                      :search-timeout = "200"
+                      :min-search-length = "0"
+                      :show-data-before-search="false"
+                      :placeholder = "''"
+                      display-expr="Name"
+                      value-expr="ID"
+                      v-model="dataDetail_.Status"                                                                            
                     /> 
                   <div class="icon icon-error" v-if="isValid.Status"></div>
                 </div>
             </div>
-          </div>
-          
+          </div>          
         </div>
         <div class="teammate">
           <div class="teammate-title">
@@ -236,7 +259,6 @@
             </div>
           </div>
         </div>
-
       </ms-popup> 
       <ms-teammate-detail v-if="teammateDetail" />
     </div>
@@ -268,23 +290,23 @@ export default {
     data() {
         return {
             statusData:[
-                {ID:1, Name: "Chờ duyệt"},
-                {ID:2, Name: "Đã duyệt"},
-                {ID:0, Name: "Từ chối"}
+              {ID:1, Name: "Chờ duyệt"},
+              {ID:2, Name: "Đã duyệt"},
+              {ID:0, Name: "Từ chối"}
             ],
             dataDetail_:{
-                CensorId: null,
-                DateDone: null,
-                DateMove: null,
-                DateSuggest: null,
-                PeopleSuggestId: null,
-                Place: null,
-                Reason: null,
-                Status: 1,
-                PeopleInvolIds:null,
-                PeopleSupportIds:null,
-                RequestSupport: null,
-                Note: null
+              CensorId: null,
+              DateDone: null,
+              DateMove: null,
+              DateSuggest: null,
+              PeopleSuggestId: null,
+              Place: null,
+              Reason: null,
+              Status: 1,
+              PeopleInvolIds:null,
+              PeopleSupportIds:null,
+              RequestSupport: null,
+              Note: null
             },
             EmployeeData: null,
             Censor:null,
@@ -310,47 +332,46 @@ export default {
               nam:null,
               ID: null
             },
-            PeopleSupportData: []
-            
-
+            PeopleSupportData: [],
+            errorDateMove: false,
+            errorDateDone:false            
         }
     },
     async created() {
+
       //load và xử lý dữ liệu tagBox
       if(this.dataDetail)
         this.dataDetail_ = (await ApplicationAPI.getById(this.dataDetail.ApplicationId)).data;
       this.vPeopleInvol = this.formatTagbox(this.dataDetail_.PeopleInvolIds);
       this.vPeopleSupport = this.formatTagbox(this.dataDetail_.PeopleSupportIds);
+
+      //tải dữ liệu toàn bộ nhân viên
       this.EmployeeData = (await EmployeeAPI.getAll()).data; 
+
+      //phân quyền và vai trò phù hợp của các nhân viên
       if(this.EmployeeData)
-      this.EmployeeData.forEach(element => {
-        
-        
+      this.EmployeeData.forEach(element => {        
         if(element.EmployeeId == this.dataDetail_.PeopleSuggestId){
           this.Department.name = element.DepartmentName;
           this.Department.ID = element.DepartmentId;
         }
-        if(element['Role']==2 && element.DepartmentId == this.Department.ID ){
-          
-          this.CensorData.push(element);
-          
-        }
-        if( element.DepartmentId == this.Department.ID ){
-          
-          this.PeopleSupportData.push(element);
-          
-        }
+        
       });
-      
-    },
-    
-    mounted() {
-       
+      this.EmployeeData.forEach(element => {
+        if(element['Role']==2 && element.DepartmentId == this.Department.ID &&element.EmployeeId != this.dataDetail_.PeopleSuggestId ){          
+          this.CensorData.push(element);          
+        }
+        if( element.DepartmentId == this.Department.ID && element.EmployeeId != this.dataDetail_.PeopleSuggestId  ){          
+          this.PeopleSupportData.push(element);          
+        }
+      })      
+    },    
+    mounted() {       
+      //mở popup người đi cùng
       this.$bus.$on('closeTeammate',()=>{
         this.teammateDetail = !this.teammateDetail;
       });
-      this.$refs['focusItem'].instance.focus();
-              
+      this.$refs['focusItem'].instance.focus();             
     },
     methods:{
       /**
@@ -420,22 +441,32 @@ export default {
           this.isValid.Status = true;
           this.checkValid = true;
         }
+        if(this.isValid.DateSuggest==false && this.isValid.DateMove==false){
+          if(new Date(this.dataDetail_.DateSuggest) > new Date(this.dataDetail_.DateMove)){
+            this.errorDateMove = true;          
+            this.checkValid = true;
+            this.isValid.DateMove = true;
+            this.isValid.DateSuggest = true;
+          }
+        }
+        if(this.isValid.DateMove==false && this.isValid.DateDone==false){
+          if(new Date(this.dataDetail_.DateMove) > new Date(this.dataDetail_.DateDone)){
+            this.errorDateDone = true;
+            this.checkValid = true;
+            this.isValid.DateDone = true;
+            this.isValid.DateMove = true;
+          }
+        }
        //nếu action = 1 thì thự hiện sửa, 0 thực hiện xóa
         if(this.checkValid==false){
-          if(this.action==0){
-    
+          if(this.action==0){    
           this.add();
           }
-          if(this.action==1){
-          
+          if(this.action==1){          
             this.update();
           }
         }
-        else notify("Thất bại", "error",500);
-        
-        
-        
-        
+        else notify("Thất bại", "error",500);        
       },
       /**
        * chuyển chuỗi các string Id về mảng int Id
@@ -456,15 +487,11 @@ export default {
           return data;
           }
         else return null;
-
       },
       /**
        * Thêm mới dữ liệu
        */
       add(){       
-        // this.dataDetail_.DateSuggest =  new Date(this.dataDetail_.DateSuggest);
-        // this.dataDetail_.DateMove =  new Date(this.dataDetail_.DateMove);
-        // this.dataDetail_.DateDone =  new Date(this.dataDetail_.DateDone);
         this.dataDetail_.PeopleInvolIds = this.convertToString(this.vPeopleInvol);
         this.dataDetail_.PeopleSupportIds = this.convertToString(this.vPeopleSupport);
         try {
@@ -473,13 +500,11 @@ export default {
           alert(error)
         } 
         this.$bus.$emit('closeDetail');
-         setTimeout(() => {
-           notify("Thành công", "success",500);
-          this.$bus.$emit('reload');
+        setTimeout(() => {
          
-          
+          this.$bus.$emit('reload');          
         }, 500);
-        
+         notify("Thành công", "success",1000);       
       },
       /**
        * Cập nhật dữ liệu
@@ -490,9 +515,10 @@ export default {
         ApplicationAPI.update(this.dataDetail.ApplicationId,this.dataDetail_);
         this.$bus.$emit('closeDetail');
         setTimeout(() => {
-          notify("Thành công", "success",500);
+          
           this.$bus.$emit('reload');         
-        }, 500);        
+        }, 500);    
+        notify("Thành công", "success",1000);    
       },
     
     },
@@ -500,7 +526,6 @@ export default {
       vCensor:{
         get(){ return  this.dataDetail_.CensorId },
         set(value){
-          //handle
           if(value==null){
             this.isValid.Censor = true;
           }
@@ -511,7 +536,6 @@ export default {
       vPeopleSuggest:{
         get(){ return  this.dataDetail_.PeopleSuggestId },
         set(value){
-          //handle
           if(value==null){
             this.isValid.PeopleSuggest = true;
           }
@@ -519,25 +543,20 @@ export default {
           this.dataDetail_.PeopleSuggestId = value;
           this.CensorData = [];
           this.PeopleSupportData = [];
-          this.EmployeeData.forEach(element => {
-        
-        
+          this.EmployeeData.forEach(element => {       
             if(element.EmployeeId == value){
               this.Department.name = element.DepartmentName;
               this.Department.ID = element.DepartmentId;
+            }            
+          }); 
+          this.EmployeeData.forEach(element => {
+            if(element['Role']==2 && element.DepartmentId== this.Department.ID &&element.EmployeeId != this.dataDetail_.PeopleSuggestId  ){              
+              this.CensorData.push(element);              
             }
-            if(element['Role']==2 && element.DepartmentId== this.Department.ID ){
-              
-              this.CensorData.push(element);
-              
+            if( element.DepartmentId == this.Department.ID&&element.EmployeeId != this.dataDetail_.PeopleSuggestId  ){          
+              this.PeopleSupportData.push(element);              
             }
-            if( element.DepartmentId == this.Department.ID ){
-          
-              this.PeopleSupportData.push(element);
-              
-            }
-           
-          });  
+          }) 
         }
       },
       vDateMove:{
@@ -545,12 +564,15 @@ export default {
           return this.dataDetail_.DateMove.toString();
           else return null; },
         set(value){
-          //handle
           if(value==null){
             this.isValid.DateMove = true;
           }
           else this.isValid.DateMove = false;
-          this.dataDetail_.DateMove = value          
+           this.isValid.DateSuggest = false;
+           this.isValid.DateDone = false;
+          this.dataDetail_.DateMove = value;
+          this.errorDateMove = false;  
+          this.errorDateDone = false;    
         }
       },
       vDateDone:{
@@ -558,13 +580,13 @@ export default {
           return this.dataDetail_.DateDone.toString();
           else return null; },
         set(value){
-          //handle
           if(value==null){
             this.isValid.DateDone = true;
           }
           else this.isValid.DateDone = false;
-          this.dataDetail_.DateDone = value
-          
+          this.errorDateMove = false;
+          this.isValid.DateMove = false;
+          this.dataDetail_.DateDone = value         
         }
       },
       vDateSuggest:{
@@ -579,19 +601,20 @@ export default {
             this.isValid.DateSuggest = true;
           }
           else this.isValid.DateSuggest = false;
-          this.dataDetail_.DateSuggest = value;         
+           this.errorDateMove = false;
+          this.dataDetail_.DateSuggest = value;
+           this.isValid.DateMove = false;    
+
         }
       },
       vStatus:{
         get(){ return  this.dataDetail_.Status },
         set(value){
-          //handle
           if(value==null){
             this.isValid.Status = true;
           }
           else this.isValid.Status = false;
-          this.dataDetail_.Status = value
-          
+          this.dataDetail_.Status = value          
         }
       }
     },

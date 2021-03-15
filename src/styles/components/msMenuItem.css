@@ -27,6 +27,9 @@
     color: white;
     /* border: 1px solid var(--primary); */
 }
+li.flex.center.focusDrop .drop-item-content {
+    color: #ec5504 !important;
+}
 .focus{
     border-radius: 32px;
     cursor: pointer;

@@ -263,6 +263,7 @@ export default {
 
 <style>
 @import url(../../styles/components/msContent.css);
+@import url(../../styles/views/misson-allowance.css);
 .icon-status{
   -webkit-mask-position: -96px -48px;
     -moz-mask-position: -96px -48px;
@@ -274,49 +275,32 @@ export default {
 </style>
 <style scoped>
 .ms-dropdown-menu{
-  top: 96px;
+  top: 100px;
     left: 254px;
-    width: 120px;
+    width: 116px
   
 }
- 
+.unselected.flex {
+    color: #ef292f;
+}
 .icon-quick-del{
-
+  margin-right: 3px;
   width: 24px;
     height: 24px;
     background: url(https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg) -168px -24px no-repeat;
 }
 
 .selected.flex{
-  margin: 20px !important;
+  margin: 20px ;
+  margin-left: 0;
 }
 .btn-quick-del .ms-button{
   background-color: #fff;
   border: 1px solid #ef292f;
   color: #ef292f;
-  margin-left: 10px;
+  margin-left: 15px;
   padding-left: 12px;
     padding-right: 15px;
 
 }
-</style>
-<style>
-/* .status .ms-dropdown-menu ul li .drop-item-content {
-    text-decoration: none;
-    color: #000000B3;
-    width: auto;
-    padding-right: 22px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-}
-.status .ms-dropdown-menu ul li {
-    list-style: none;
-    justify-content: space-between;
-    padding-left: 8px;
-    border-radius: 4px;
-    height: 37px;
-} */
-@import url(../../styles/views/misson-allowance.css);
-
-
 </style>

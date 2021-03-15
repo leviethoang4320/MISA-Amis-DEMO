@@ -11,6 +11,11 @@ namespace MISA.DataLayer.Contexts
 {
     public class ApplicationRepository : DbContext<Application>, IApplicationRepository
     {
+        /// <summary>
+        /// Hàm lấy dữ liệu sau khi phân trang, lọc, tìm kiếm
+        /// </summary>
+        /// <param name="pageInfo">Object chưa các thông tin lọc, phân trang, tìm kiếm</param>
+        /// <returns>dữ liệu sau khi đã lọc, tìm kiếm, phân trang</returns>
         public object GetPaging(Paginate pageInfo)
         {
             var props = typeof(Paginate).GetProperties();
@@ -24,6 +29,11 @@ namespace MISA.DataLayer.Contexts
             int count = dynamicParameters.Get<Int32>("count");
             return new { res, count };
         }
+        /// <summary>
+        /// Xóa nhiều trường
+        /// </summary>
+        /// <param name="id">mảng id các trường cần xóa</param>
+        /// <returns>số bản ghi đã xóa được</returns>
         public int deleteMultiple(List<string> id)
         {
             var effectRows = 0;

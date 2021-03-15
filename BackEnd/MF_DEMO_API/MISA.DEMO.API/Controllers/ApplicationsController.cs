@@ -19,6 +19,11 @@ namespace MISA.DEMO.API.Controllers
         {
             _baseService = baseService;
         }
+        /// <summary>
+        /// Hàm lấy dữ liệu sau khi phân trang, lọc, tìm kiếm
+        /// </summary>
+        /// <param name="pageInfo">Object chưa các thông tin lọc, phân trang, tìm kiếm</param>
+        /// <returns>object dữ liệu sau khi đã lọc, tìm kiếm, phân trang</returns>
         [HttpPost("paging")]
         public IActionResult GetPaging([FromBody] Paginate pageInfo)
         {
@@ -26,6 +31,11 @@ namespace MISA.DEMO.API.Controllers
             var applications = _baseService.GetPaging(pageInfo);
             return Ok(applications);
         }
+        /// <summary>
+        /// Xóa nhiều trường
+        /// </summary>
+        /// <param name="id">mảng id các trường cần xóa</param>
+        /// <returns>số bản ghi đã xóa được</returns>
         [HttpPost("multiple-delete")]
         public IActionResult deleteMultiple([FromBody] List<string> id)
         {
