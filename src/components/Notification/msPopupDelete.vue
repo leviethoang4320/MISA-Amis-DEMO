@@ -23,8 +23,7 @@ export default {
             ApplicationAPI.delete(this.deleteInfo.ApplicationId);
              this.$bus.$emit('closeDel');
               setTimeout(() => {
-                this.$bus.$emit('reload');
-                
+                this.$bus.$emit('reload');               
                 
                 }, 500);
         }

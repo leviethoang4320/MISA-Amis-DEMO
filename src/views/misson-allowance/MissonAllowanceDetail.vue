@@ -9,7 +9,7 @@
                     <DxSelectBox
                           
                           :search-enabled="true"
-                          :data-source="Employee"
+                          :data-source="EmployeeData"
                           search-mode="contains"
                           search-expr="Name"
                           :search-timeout = "200"
@@ -39,7 +39,7 @@
 
             <div class="popup-content-item center flex">
                 <div class="inputText">Đơn vị công tác </div>
-                <input disabled="true" style="height:29px; width:232px"/>
+                <input v-model="Department.name" disabled="true" style=" width:220px; padding:8px; font-size: 14px"/>
             </div>
             <div class="popup-content-item center flex" :class="{validate:isValid.Censor}">
                 <div class="inputText"   >Người duyệt <span class="required"> *</span></div>
@@ -47,7 +47,7 @@
                   <DxSelectBox
                          
                         :search-enabled="true"
-                        :data-source="Employee"
+                        :data-source="CensorData"
                         search-mode="contains"
                         search-expr="Name"
                         :search-timeout = "200"
@@ -146,7 +146,7 @@
                 <div class="ms-input">
                   <DxTagBox
                   
-                    :items="Employee"
+                    :items="EmployeeData"
                     :search-enabled="true"
                     v-model="vPeopleInvol"
                   
@@ -172,7 +172,7 @@
                 <div class="ms-input">
                     <DxTagBox
                   
-                    :items="Employee"
+                    :items="EmployeeData"
                     :search-enabled="true"
                     
                     v-model="vPeopleSupport"
@@ -249,7 +249,7 @@ import { DxTooltip } from 'devextreme-vue/tooltip';
 import MsTeammateDetail from "./MsTeammateDetail.vue";
 import ApplicationAPI from '@/api/components/Application/ApplicationAPI.js'
 import EmployeeAPI from '@/api/components/Employee/EmployeeAPI.js'
-
+import notify from 'devextreme/ui/notify';
 export default {
     name: "MissonAllowanceDetail",
     components:{
@@ -286,7 +286,7 @@ export default {
                 RequestSupport: null,
                 Note: null
             },
-            Employee: null,
+            EmployeeData: null,
             Censor:null,
             teammateDetail: false,
             isValid:{
@@ -304,7 +304,13 @@ export default {
             DateMoveVisible: false,
             DateDoneVisible: false,
             vPeopleInvol:null,
-            vPeopleSupport:null
+            vPeopleSupport:null,
+            CensorData:[],
+            Department:{
+              nam:null,
+              ID: null
+            },
+            PeopleSupportData: []
             
 
         }
@@ -315,8 +321,27 @@ export default {
         this.dataDetail_ = (await ApplicationAPI.getById(this.dataDetail.ApplicationId)).data;
       this.vPeopleInvol = this.formatTagbox(this.dataDetail_.PeopleInvolIds);
       this.vPeopleSupport = this.formatTagbox(this.dataDetail_.PeopleSupportIds);
-      this.Employee = (await EmployeeAPI.getAll()).data; 
-            
+      this.EmployeeData = (await EmployeeAPI.getAll()).data; 
+      if(this.EmployeeData)
+      this.EmployeeData.forEach(element => {
+        
+        
+        if(element.EmployeeId == this.dataDetail_.PeopleSuggestId){
+          this.Department.name = element.DepartmentName;
+          this.Department.ID = element.DepartmentId;
+        }
+        if(element['Role']==2 && element.DepartmentId == this.Department.ID ){
+          
+          this.CensorData.push(element);
+          
+        }
+        if( element.DepartmentId == this.Department.ID ){
+          
+          this.PeopleSupportData.push(element);
+          
+        }
+      });
+      
     },
     
     mounted() {
@@ -325,9 +350,7 @@ export default {
         this.teammateDetail = !this.teammateDetail;
       });
       this.$refs['focusItem'].instance.focus();
-           
-               
-          
+              
     },
     methods:{
       /**
@@ -408,6 +431,7 @@ export default {
             this.update();
           }
         }
+        else notify("Thất bại", "error",500);
         
         
         
@@ -438,11 +462,11 @@ export default {
        * Thêm mới dữ liệu
        */
       add(){       
-        this.dataDetail_.DateSuggest =  new Date(this.dataDetail_.DateSuggest);
-        this.dataDetail_.DateMove =  new Date(this.dataDetail_.DateMove);
-        this.dataDetail_.DateDone =  new Date(this.dataDetail_.DateDone);
+        // this.dataDetail_.DateSuggest =  new Date(this.dataDetail_.DateSuggest);
+        // this.dataDetail_.DateMove =  new Date(this.dataDetail_.DateMove);
+        // this.dataDetail_.DateDone =  new Date(this.dataDetail_.DateDone);
         this.dataDetail_.PeopleInvolIds = this.convertToString(this.vPeopleInvol);
-        this.dataDetail_.PeopleSupportIds = this.convertToString(this.vPeopleSupport)
+        this.dataDetail_.PeopleSupportIds = this.convertToString(this.vPeopleSupport);
         try {
           ApplicationAPI.insert(this.dataDetail_);
         } catch (error) {
@@ -450,6 +474,7 @@ export default {
         } 
         this.$bus.$emit('closeDetail');
          setTimeout(() => {
+           notify("Thành công", "success",500);
           this.$bus.$emit('reload');
          
           
@@ -459,15 +484,13 @@ export default {
       /**
        * Cập nhật dữ liệu
        */
-      async update(){        
-        this.dataDetail_.DateSuggest =  new Date(this.dataDetail_.DateSuggest);       
-        this.dataDetail_.DateMove =  new Date(this.dataDetail_.DateMove);
-        this.dataDetail_.DateDone =  new Date(this.dataDetail_.DateDone);
+      update(){        
         this.dataDetail_.PeopleInvolIds = this.convertToString(this.vPeopleInvol);
         this.dataDetail_.PeopleSupportIds = this.convertToString(this.vPeopleSupport);
         ApplicationAPI.update(this.dataDetail.ApplicationId,this.dataDetail_);
         this.$bus.$emit('closeDetail');
         setTimeout(() => {
+          notify("Thành công", "success",500);
           this.$bus.$emit('reload');         
         }, 500);        
       },
@@ -493,7 +516,28 @@ export default {
             this.isValid.PeopleSuggest = true;
           }
           else this.isValid.PeopleSuggest = false;
-          this.dataDetail_.PeopleSuggestId = value         
+          this.dataDetail_.PeopleSuggestId = value;
+          this.CensorData = [];
+          this.PeopleSupportData = [];
+          this.EmployeeData.forEach(element => {
+        
+        
+            if(element.EmployeeId == value){
+              this.Department.name = element.DepartmentName;
+              this.Department.ID = element.DepartmentId;
+            }
+            if(element['Role']==2 && element.DepartmentId== this.Department.ID ){
+              
+              this.CensorData.push(element);
+              
+            }
+            if( element.DepartmentId == this.Department.ID ){
+          
+              this.PeopleSupportData.push(element);
+              
+            }
+           
+          });  
         }
       },
       vDateMove:{

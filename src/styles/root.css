@@ -131,3 +131,44 @@ html {
     color: #c6cecd;
     font-size: 14px
 }
+.dx-toast-content {
+    transform: none !important;
+    right: 28px;
+    bottom: 28px;
+    left: unset !important;
+    top: unset !important;
+    max-width: 300px !important;
+    min-width: 100px !important;
+    display: flex;
+    align-items: center;
+}
+
+.dx-toast-success {
+    background-color: #c3f4c3;
+    border-left: 5px solid #00b44b;
+}
+
+.dx-toast-success .dx-toast-icon {
+    mask: url('~@/assets/icon/icon-common.svg') no-repeat -242px -98px;
+    background-color: #00b44b;
+    width: 20px;
+    height: 20px;
+    display: block
+}
+
+.dx-toast-message {
+    color: black
+}
+
+.dx-toast-error {
+    background-color: #EECBCB;
+    border-left: 5px solid red;
+}
+
+.dx-toast-error .dx-toast-icon {
+    mask: url('~@/assets/icon/icon-common.svg') no-repeat -218px -98px;
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    display: block
+}

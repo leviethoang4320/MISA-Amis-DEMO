@@ -82,7 +82,7 @@
             <div class="icon icon-select"></div>
             <ms-dropdown-menu  :itemKey="'paginate'" :dropdownMenuItem="pageSizes"/>
           </div>
-          <div class="paginate-detail mgr-20">Từ <span style="font-weight: 700">{{firstDataItem}}</span> đến <span style="font-weight: 700">{{firstDataItem+count-1}}</span> bản ghi</div>
+          <div class="paginate-detail mgr-20">Từ <span style="font-weight: 700">{{firstDataItem}}</span> đến <span style="font-weight: 700">{{lastDataItem}}</span> bản ghi</div>
           <div class="icon icon-prev mgr-20" @click="prevPage()"></div>
           <div class="icon icon-next mgr-20" @click="nextPage()"></div>
         </div>
@@ -119,7 +119,7 @@ export default {
   props:{
     columnInfo: Array,
     dataGrid: {
-      type:Array,
+      type:Object,
       default: null
     }
   },
@@ -138,17 +138,27 @@ export default {
       pageSizeNow:15,
       pageNow:1,
       firstDataItem:1,
+      lastDataItem:15,
       count: null,
       filterPopup: false,
       deletePopup: false,
       columnInfo_:false,
       selectedRowKeys:null,
       dataGrid_:null,
-      deleteInfo:null
+      deleteInfo:null,
+
     };
   },
   mounted() {
-    this.dataGrid_ = this.dataGrid;
+    
+    
+    if(this.dataGrid)
+    {
+    this.dataGrid_ = this.dataGrid.res;
+
+    this.count = this.dataGrid.count;
+    }
+    
     this.columnInfo_ = this.columnInfo;
     
      this.$bus.$on('closeDel',()=>{
@@ -195,7 +205,7 @@ export default {
 
     },
     nextPage(){
-      if(this.count == this.pageSizeNow)
+      if(this.count >= this.firstDataItem +this.pageSizeNow - 1)
       this.pageNow = this.pageNow+1;
     },
     prevPage(){
@@ -208,17 +218,23 @@ export default {
       this.columnInfo_ = val;
     },
     dataGrid(val){
-      this.count = val ? val.length : null;
-      this.dataGrid_= val;
+      {
+      this.count = val.count ;
+      this.dataGrid_= val.res;
+      this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
+      }
     },
     firstDataItem(val){
-      this.$emit('updateFirstData',val)
+      this.$emit('updateFirstData',val);
+      this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
     },
     pageSizeNow(val){
-      this.$emit('updatePageSize',val)
+      this.$emit('updatePageSize',val);
+      this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
     },
     pageNow(val){
       this.firstDataItem = (this.pageSizeNow*val-this.pageSizeNow+1);
+      this.lastDataItem =  this.firstDataItem+this.dataGrid_.length-1;
     }
   }
 };
@@ -226,17 +242,18 @@ export default {
 <style scoped>
 .grid-filter{
   height: calc(100vh - 177px);
-  width: 203px !important;
+  width: 210px !important;
   background-color: #ffffff;
   padding: 14px 16px;
   border-radius: 4px;
+  padding-left: 10px;
 }
 .grid-filter .icon-close{
   margin: 0;
   
 }
 .grid-filter .search{
-  width: 171px;
+  width: 192px;
 }
 .draggable-menu .search{
  
@@ -245,7 +262,7 @@ export default {
 
 }
 .grid-filter .input-search{
-  width: 140px;
+ width: 191px;
 }
 .filter-title{
   height: 30px;
@@ -258,7 +275,7 @@ export default {
     font-weight: 700;
 }
 .grid-content.on-filter{
-  width: calc(100% - 250px);
+  width: calc(100% - 253px);
   margin-right: 15px;
 }
 .page-size-info{
@@ -355,6 +372,7 @@ export default {
 
 .dragg-text{
   width: 150px;
+  padding-left: 12px;
 }
 .item-dragg{
     color: #333;
@@ -377,9 +395,13 @@ export default {
 }
 </style>
 <style>
+.dx-list-item-selected {
+    background-color: var(--primary-bg) !important;
+    color: #212121;
+}
 .footer-right .ms-dropdown-menu ul li .drop-item-content {
     text-decoration: none;
-    color: #000000B3;
+    color: #212121;
     width: auto;
     padding-right: 22px;
 }

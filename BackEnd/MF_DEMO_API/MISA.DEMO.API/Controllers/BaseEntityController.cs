@@ -89,7 +89,7 @@ namespace MISA.DEMO.API.Controllers
         /// CreatedBy: LVHOANG
         [HttpPut("{id}")]
         public virtual IActionResult Put(int id, [FromBody] TEntity entity)
-        {
+            {
 
             var res = _baseService.Update(id, entity);
             switch (res.MISACode)

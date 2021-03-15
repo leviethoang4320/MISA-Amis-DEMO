@@ -195,8 +195,9 @@ export default {
         pagingData.firstDataItem = this.firstDataItem - 1;
         pagingData.status = this.statusNow.value;
         pagingData.filter = this.search;
-        this.applications = (await ApplicationAPI.paging(pagingData)).data;      
-        this.applications.forEach(element => {
+        this.applications = (await ApplicationAPI.paging(pagingData)).data;
+        // this.applications = response.res;      
+        this.applications.res.forEach(element => {
           element.DateSuggest = this.formatDate(element.DateSuggest);
          
           element.DateMove = this.formatDate(element.DateMove);

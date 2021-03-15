@@ -11,10 +11,18 @@ namespace MISA.DataLayer.Contexts
 {
     public class ApplicationRepository : DbContext<Application>, IApplicationRepository
     {
-        public IEnumerable<Application> GetPaging(Paginate pageInfo)
-        {  
-            return _dbConnection.Query<Application>($"Application_Paging", pageInfo, commandType: CommandType.StoredProcedure);
-            
+        public object GetPaging(Paginate pageInfo)
+        {
+            var props = typeof(Paginate).GetProperties();
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            foreach( var prop in props)
+            {
+                dynamicParameters.Add(prop.Name, prop.GetValue(pageInfo));
+            }
+            dynamicParameters.Add("count", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            var res = _dbConnection.Query<Application>($"Application_Paging", dynamicParameters, commandType: CommandType.StoredProcedure);
+            int count = dynamicParameters.Get<Int32>("count");
+            return new { res, count };
         }
         public int deleteMultiple(List<string> id)
         {

@@ -7,7 +7,7 @@ namespace MISA.Service.Interfaces
 {
     public interface IApplicationService: IBaseService<Application>
     {
-        public IEnumerable<Application> GetPaging(Paginate pageInfo);
+        public object GetPaging(Paginate pageInfo);
         public ServiceResult deleteMultiple(List<string> id);
     }
 }

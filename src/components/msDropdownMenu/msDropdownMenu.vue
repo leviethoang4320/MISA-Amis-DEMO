@@ -1,5 +1,5 @@
 <template>
-  <div class="ms-dropdown-menu" v-if="dropdownMenuOpen">
+  <div class="ms-dropdown-menu" v-if="dropdownMenuOpen" v-click-outside="onClickOutside" >
       <ul>
           <li class="flex center" :class="{'focusDrop':item.checked}" v-for="(item,index) in dropdownMenuItem" :key="index" @click="$bus.$emit('checked',item.value,itemKey)">
               <div class="drop-item-content"> {{item.name}}</div>
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import vClickOutside from 'v-click-outside'
 export default {
     name:"MsDropdownMenu",
     props:{
@@ -28,6 +29,15 @@ export default {
              }
     })
     },
+    directives: {
+      clickOutside: vClickOutside.directive
+    },
+     methods: {
+      onClickOutside (event) {
+        console.log('Clicked outside. Event: ', event);
+        this.dropdownMenuOpen = !this.dropdownMenuOpen;
+      }
+    }
 }
 </script>
 

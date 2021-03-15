@@ -16,7 +16,7 @@ namespace MISA.Service.Services
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Application> GetPaging(Paginate pageInfo)
+        public object GetPaging(Paginate pageInfo)
         {
            return _dbContext.GetPaging(pageInfo);
         }

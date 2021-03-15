@@ -7,7 +7,7 @@ namespace MISA.DataLayer.Interfaces
 {
     public interface IApplicationRepository: IDbContext<Application>
     {
-        public IEnumerable<Application> GetPaging(Paginate pageInfo);
+        public object GetPaging(Paginate pageInfo);
         public int deleteMultiple(List<string> id);
     }
 }

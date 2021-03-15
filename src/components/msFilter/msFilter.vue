@@ -10,6 +10,7 @@
             <input ref="focusSearch" v-model="searchValue" class="input-search" placeholder="Tìm kiếm" type="text">
       </div>
       <div class="filter-content">
+        <div class="filter-detail">
               <div class="item-dragg " 
                 :class="{'selected-filter':element.filter }" 
                 v-for="element in columnInfo__" :key="element.id"
@@ -59,7 +60,7 @@
                     :noDataText="'Không có dữ liệu'"
 
                 /> 
-             
+          </div>
         </div>
       </div>
       <div class="popup-toolbar flex" style="height:40px !important; padding: 10px;justify-content: space-between; ">
@@ -144,9 +145,17 @@ export default {
 </script>
 
 <style scoped>
+.filter-detail{
+  width: 100%;
+  padding-right: 10px;
+  
+}
 .filter-content{
-  height: 355px;
- overflow-y: auto ;
+  margin-top: 7px !important;
+ width: 225px;
+    height: 355px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .dx-show-invalid-badge.dx-selectbox.dx-textbox.dx-texteditor.dx-dropdowneditor-button-visible.dx-editor-underlined.dx-widget.dx-dropdowneditor.dx-dropdowneditor-field-clickable {
    margin-bottom: 8px;
@@ -171,6 +180,7 @@ export default {
 
 .dragg-text{
   width: 150px;
+  padding-left: 12px;
 }
 .selected-filter{
     background-color: #ffede2;
@@ -191,7 +201,7 @@ export default {
     font-size: 14px;
     border-radius: 6px;
     padding: 11px 6px 8px 10px;
-     justify-content: space-between;
+    /* justify-content: space-between; */
     
 }
 .item-dragg.selected-filter {
@@ -225,17 +235,19 @@ export default {
 }
 .grid-filter{
   height: calc(100vh - 177px);
-  width: 203px !important;
+  width: 220px !important;
   background-color: #ffffff;
   padding: 14px 16px;
   border-radius: 4px;
+  padding-left: 10px;
 }
+
 .grid-filter .icon-close{
   margin: 0;
   
 }
 .grid-filter .search{
-  width: 187px;
+  width: 191px;
 }
 .grid-filter .input-search{
   width: 140px;
